@@ -1,0 +1,75 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- login area start -->
+<div class="login-area login-bg">
+    <div class="container">
+        <div class="login-box ptb--100">
+            <form method="post" asp-action="@AuthenticationController.ActionLogin" asp-controller="@AuthenticationController.Name">
+                <div class="login-form-head">
+                    <h4 style="font-family:'Nunito'">Risk Analysis and Assessment</h4>
+                    <p style="font-family:'Nunito'">Sign in to start your session</p>
+                </div>
+                <div class="login-form-body">
+                    @Html.HiddenFor(m => m.ReturnUrl)
+                    <div class="form-gp focused">
+                        <label asp-for="Username">Username/Email Or Employee No.</label>
+                        <input type="text" required asp-for="Username" >
+                        <i class="ti-user"></i>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="Password">Password</label>
+                        <input type="password" required asp-for="Password">
+                        <i class="ti-lock"></i>
+                    </div>
+                    <div class="row mb-4 rmber-area">
+                        <div class="col-6">
+                            @*<div class="custom-control custom-checkbox mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                <label class="custom-control-label" for="customControlAutosizing">Remember Me</label>
+                            </div>*@
+                        </div>
+                        <div class="col-6 text-right">
+                            <a asp-action="@AuthenticationController.ActionForgetPassword" asp-controller="@AuthenticationController.Name">Forget Password</a>
+                           
+                        </div>
+                    </div>
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit">Sign In<i class="ti-arrow-right"></i></button>
+                    </div>
+                    <div class="form-footer text-center mt-5">
+                        <p style="font-family:'Nunito'" class="text-muted">Don't have an account? <a asp-action="@HomeController.ActionContact" asp-controller="@HomeController.Name">Contact</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#Username').focus()
+        //if ($('#Username').val() != '') {
+        //    alert('s')
+        //}
+        $(document).ready(function () {
+            
+            console.log('@ViewData["Message"]')
+            if ('@ViewData["Message"]'.length > 0){
+                toastr["error"]("@ViewData["Message"]")
+
+            }
+
+            if ('@TempData["ChangePassword"]'.length > 0) {
+                toastr["success"]("@TempData["ChangePassword"]")
+
+            }
+        });
+       
+    </script>
+}

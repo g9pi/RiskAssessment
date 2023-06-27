@@ -1,0 +1,210 @@
+﻿@{
+
+    ViewData["Title"] = "Improvement Plan Detail";
+}
+<div id="app">
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col pt-2">
+                <h3 class=" text-white">@ViewData["Title"]</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                <a class="btn btn-outline-warning text-white" asp-action="@ImprovementPlanController.ActionPlanList"
+                   asp-controller="@ImprovementPlanController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>
+                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label class="col-form-label">Process (กระบวนการ)</label>
+                                    <select class="custom-select" disabled>
+                                        <option selected="selected" >EDS</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="col-form-label">Status (สถานะ)</label>
+                                    <select class="custom-select" disabled>
+                                        <option selected="selected">Completed</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="col-form-label">Risk or Opportunity (ความเสี่ยงหรือโอกาส)</label>
+                                    <select class="custom-select" disabled>
+                                        <option selected="selected">สภาพของวัสดุที่ต้องการทิ้ง มีการเปลี่ยนหลังจากประมูลราคาแล้ว / ผู้รับเหมาไม่รับของ / ต้องประมูลราคาใหม่</option>
+                                     
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Action Items (รายละเอียดการดำเนินการ)</label>
+                                    <textarea class="form-control" type="text" readonly> สภาพของวัสดุที่ต้องการทิ้ง มีการเปลี่ยนหลังจากประมูลราคาแล้ว / ผู้รับเหมาไม่รับของ / ต้องประมูลราคาใหม่</textarea>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Resource (ทรัพยากร)</label>
+                                    <textarea class="form-control" type="text" readonly> </textarea>
+                                </div>
+                            </div>
+                            <div class="col">
+
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Successful Index (ดัชนีชี้วัดความสำเร็จ)</label>
+                                    <textarea class="form-control" type="text" readonly >ต้องไม่มีการ Re-bidding ที่เกิดจากการเปลี่ยน Condition ของวัสดุที่ขาย ในปี 2020 </textarea>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="example-date-input" class="col-form-label">Start Date (วันที่เริ่ม)</label>
+                                    <input class="form-control" type="date" value="2020-01-01" id="example-date-input" disabled>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="example-date-input" class="col-form-label">Finish Date (วันที่เสร็จ)</label>
+                                    <input class="form-control" type="date" value="2020-12-31" id="example-date-input" disabled>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Action by (ผู้ดำเนินการ)</label>
+                                    <input class="form-control" type="text" value="@Context.User.FindFirstValue(AccountClaim.Name)" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Remark (หมายเหตุ)</label>
+                                    <textarea class="form-control" type="text" readonly>ปิดแผน </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5>Follow-up</h5>
+                            </div>
+                            <div class="col-auto ml-auto">
+                                <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter"><i class="ti-rss"></i> Follow-Up</button>
+                            </div>
+                        </div>
+                     
+                        <hr />
+                        <div class="row">
+                            <div class="col">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Follow-Up by<br />ผู้ตรวจสอบ</th>
+                                                <th>Follow-Up Date<br />วันที่ตรวจสอบ</th>
+                                                <th>Result<br />ผลการดำเนินการ</th>
+                                                <th>Status<br />สถานะ</th>
+                                                <th>Remark<br />หมายเหตุ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1.</td>
+                                                <td>Tanapat Tansara</td>
+                                                <td>2023-06-01</td>
+                                                <td>ยังไม่เรียบร้อย</td>
+                                                <td><span class="badge badge-primary">In-Process</span></td>
+                                                <td>รอดำเนินการในขั้นตอนถัดไป</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2.</td>
+                                                <td>Tanapat Tansara</td>
+                                                <td>2023-06-15</td>
+                                                <td>ไม่พบการ Re-bidding เนื่องจากการเปลี่ยนข้อตกลง ของวัสดุที่ทำการซื้อขายในปี 2021 ที่ผ่านมา</td>
+                                                <td><span class="badge badge-success">Completed</span></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalCenter">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add new Follow-Up Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                   <div class="row">
+                       <div class="col">
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Follow-Up by (ผู้ตรวจสอบ)</label>
+                                <input class="form-control" type="text" value="@Context.User.FindFirstValue(AccountClaim.Name)" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Follow-Date by (ผู้ที่ตรวจสอบ)</label>
+                                <input class="form-control" type="date" value="2020-12-31" id="example-date-input" >
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Result (ผลการดำเนินการ)</label>
+                                <textarea class="form-control" type="text" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Status (สถานะ)</label>
+                                <select class="custom-select" >
+                                    <option selected="selected" value="In-Process">In-Process</option>
+                                    <option value="Completed">Completed</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Remark (หมายเหตุ)</label>
+                                <textarea class="form-control" type="text"></textarea>
+                            </div>
+                       </div>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

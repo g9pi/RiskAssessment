@@ -1,0 +1,787 @@
+﻿@{
+    ViewData["Title"] = "Product Risk Edit";
+}
+<div id="app">
+
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col pt-2">
+                <h3 class=" text-white">@ViewData["Title"]</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                <a class="btn btn-outline-warning text-white" asp-action="@ProductRiskController.ActionProductRiskList"
+                   asp-controller="@ProductRiskController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            <h5 class="mt-2">Product Name :</h5>
+                        </div>
+                        <div class="col">
+                            <input class="form-control form-control-lg" />
+                        </div>
+                        <div class="col-auto ml-auto">
+                            @*<button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>*@
+                        </div>
+                    </div>
+
+                    <hr />
+                    
+                    <div class="row">
+                        
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="div_ddl" class="col-form-label">Division</label>
+                                <select class="custom-select" id="div_ddl" >
+                                    <option Value="General Productio">General Production</option>
+                                    @* @foreach (var item in Model.Division_ddl)
+                                    {
+                                    <option value="@item.Value">@item.Text</option>
+                                    }*@
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label  class="col-form-label">
+                                    Potential Failure Mode
+                                    (ข้อบกพร่องที่มีแนวโน้มจะเกิดขึ้น)
+                                </label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        Potential Effect(s) of Failure
+                                        (แนวโน้มผลกระทบที่จะเกิด)
+                                    </label>
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Severity or Level of Opportunit (SEV) <br /> ระดับความรุนแรงของผลกระทบ
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio"  id="customRadio1" name="customRadio1" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1"><span class="badge badge-pill badge-success" style="font-size:90% !important">1</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio"  id="customRadio2" name="customRadio1" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio2"><span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio"  id="customRadio3" name="customRadio1" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio3"><span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ระดับความรุนแรงของผลกระทบ </li>
+                                <li class="list-group-item">ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span> เมื่อมีผลกระทบในระดับเล็กน้อย ได้แก่ Minor Defect</li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    เมื่อมีผลกระทบในระดับรุนแรงได้แก่ Major Defect หรือ Minor Defect
+                                    ที่เกินจำนวนที่ยอมรับได้
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    เมื่อมีผลกระทบในระดับวิกฤติได้แก่ Critical Defect หรือ Major Defect
+                                    ที่เกินจำนวนที่ยอมรับได้
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Severity or Level of Opportunity</li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    When there is a small impact such as Minor Defect
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    When there is a huge impact such as Major Defect or Minor Defect by
+                                    over the acceptable limit.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    When there is a critical impact such as Critical Defect or Major Defect
+                                    by over the acceptable limit.
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Class of Failure and Effect <br />
+                                    ประเภทของปัญหาและผลกระทบ
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio"  id="customRadio4" name="customRadio2" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio4">Normal <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio5" name="customRadio2" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio5">Critical <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ประเภทของปัญหาและผลกระทบ</li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                    สำหรับปัญหาและผลกระทบทั่วไป (Normal) เป็นประเด็นเล็กน้อย ไม่เสี่ยง
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                    สำหรับปัญหาและผลกระทบที่วิกฤติ(Critical) มีความสำคัญเป็นพิเศษ
+                                    เสี่ยงต่อการทำให้เกิดการเสียความเชื่อมมั่นในบริษัท หรือเป็นประเด็นที่ลูกค้า
+                                    หรือผู้ใช้ผลิตภัณฑ์ให้ความสำคัญเป็นพิเศษ
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Class of Failure and Effect</li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                    For normal failure and impact which is minor issue that is no risk to
+                                    lost the trust of customer or product user on the company.
+                                </li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                    For critical failure or impact which is a special important that risk to
+                                    get lost the trust in company or be the issue which the customer or
+                                    product user gives the special prioritizes.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">                       
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="col-form-label">
+                                    Potential Cause(s)
+                                    Mechanism(s) of Failure
+                                    สิ่งที่น่าจะเป็นสาเหตุ
+                                </label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        Prevent
+                                        การป้องกันสาเหตุ
+                                    </label>
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Occurrence Frequency Level (O) <br />
+                                    ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio6" name="customRadio3" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio6"><span class="badge badge-pill badge-success" style="font-size:90% !important">1</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio7" name="customRadio3" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio7"><span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio8" name="customRadio3" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio8"><span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น </li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    เมื่อสาเหตุเกิดขึ้นน้อยมาก หรือประมาณ 1คร้ังต่อปี หรือมีความถี่
+                                    น้อยกว่าน้น
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    เมื่อสาเหตุเกิดขึ้นบางครั้ง หรือมากกว่า 1คร้ังต่อปี แต่น้อยกว่า 1 ครั้งต่อเดือน
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    เมื่อสาเหตุเกิดขึ้นบ่อยครั้ง หรือประมาณ 1 ครั้งต่อเดือน
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Occurrence Frequency Level</li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    When the cause is rarely occurring or around 1 time per year or
+                                    longer than that.
+
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    When the cause is occur in sometimes or more than 1 time per
+                                    year but longer than 1 time per month.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    When the cause always occur in every times or around 1
+                                    time per month.
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Detect by <br />
+                                    ตรวจสอบความผิดพลาดโดย
+                                </label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Detection Level<br />
+                                    การตรวจจับการเกิดปัญหา
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio9" name="customRadio4" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio9"><span class="badge badge-pill badge-success" style="font-size:90% !important">1</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio10" name="customRadio4" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio10"><span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio11" name="customRadio4" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio11"><span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">การตรวจจับการเกิดปัญหา</li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    เมื่อมีระบบตรวจจับอัตโนมัติ
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    เมื่อมีการตรวจจับโดยใช้เครื่องมือวัด
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    เมื่อมีการตรวจจับโดยใช้สายตาหรือความรู้สึก
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Detection Level</li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    When there are automatic detect.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    When there are detect manually with the measuring
+                                    equipments.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    When there are detect manually with visual check or
+                                    feeling
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    RPN: Risk Priority Number <br />
+                                    (or Opportunity Priority Number)
+                                </label>
+                                <input class="form-control" type="number" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Level of Risk <br />
+                                    ระดับความเสี่ยง
+                                </label>
+                                <input class="form-control" type="text" readonly />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ระดับความเสี่ยง(Level of Risk)</li>
+                                <li class="list-group-item">
+                                    <span class="badge badge-pill badge-success" style="font-size:90% !important">Low Risk (L)</span>
+                                    เมื่อ RPN มีค่าระหว่าง 1 - 4
+
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">Moderate Risk (M)</span>
+                                    เมื่อ RPN มีค่าระหว่าง 6 - 9
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">High Risk (H)</span>
+                                    เมื่อ RPN มีค่าระหว่าง 12 - 27
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Level of Risk</li>
+                                <li class="list-group-item">
+                                    <span class="badge badge-pill badge-success" style="font-size:90% !important">Low Risk (L)</span>
+                                    While the RPN is in range 1 - 4
+
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">Moderate Risk (M)</span>
+                                    While the RPN is in range 6 - 9
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">High Risk (H)</span>
+                                    While the RPN is in range 12 - 27
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Action Result (การปรับปรุง)</h5>
+                    <hr />
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Reaction (มาตรการ)</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Target (เป้าหมาย)
+                                </label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Action Taken (มาตรการที่ดำเนินการไป)
+                                </label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                         <div class="col">
+                            <div class="form-group">
+                                <label>
+                                    Action by <br />((ดำเนินการด้วย)
+                                </label>
+                                <input class="form-control" type="text"/>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>
+                                    Expecting Completed Date วันที่จะเสร็จ)
+                                </label>
+                                <input class="form-control" type="date" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-1"/>
+                    <h5 class="mt-4">Re-assessment after action result (การประเมินหลังจากการปรับปรุง)</h5>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Severity or Level of Opportunit (SEV) <br /> ระดับความรุนแรงของผลกระทบ
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio12" name="customRadio5" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio12"><span class="badge badge-pill badge-success" style="font-size:90% !important">1</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio13" name="customRadio5" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio13"><span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio14" name="customRadio5" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio14"><span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ระดับความรุนแรงของผลกระทบ </li>
+                                <li class="list-group-item">ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span> เมื่อมีผลกระทบในระดับเล็กน้อย ได้แก่ Minor Defect</li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    เมื่อมีผลกระทบในระดับรุนแรงได้แก่ Major Defect หรือ Minor Defect
+                                    ที่เกินจำนวนที่ยอมรับได้
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    เมื่อมีผลกระทบในระดับวิกฤติได้แก่ Critical Defect หรือ Major Defect
+                                    ที่เกินจำนวนที่ยอมรับได้
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Severity or Level of Opportunity</li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    When there is a small impact such as Minor Defect
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    When there is a huge impact such as Major Defect or Minor Defect by
+                                    over the acceptable limit.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    When there is a critical impact such as Critical Defect or Major Defect
+                                    by over the acceptable limit.
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Class of Failure and Effect <br />
+                                    ประเภทของปัญหาและผลกระทบ
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio15" name="customRadio6" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio15">Normal <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio16" name="customRadio6" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio16">Critical <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ประเภทของปัญหาและผลกระทบ</li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                    สำหรับปัญหาและผลกระทบทั่วไป (Normal) เป็นประเด็นเล็กน้อย ไม่เสี่ยง
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                    สำหรับปัญหาและผลกระทบที่วิกฤติ(Critical) มีความสำคัญเป็นพิเศษ
+                                    เสี่ยงต่อการทำให้เกิดการเสียความเชื่อมมั่นในบริษัท หรือเป็นประเด็นที่ลูกค้า
+                                    หรือผู้ใช้ผลิตภัณฑ์ให้ความสำคัญเป็นพิเศษ
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Class of Failure and Effect</li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                    For normal failure and impact which is minor issue that is no risk to
+                                    lost the trust of customer or product user on the company.
+                                </li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                    For critical failure or impact which is a special important that risk to
+                                    get lost the trust in company or be the issue which the customer or
+                                    product user gives the special prioritizes.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    Occurrence Frequency Level (O) <br />
+                                    ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio17" name="customRadio7" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio17"><span class="badge badge-pill badge-success" style="font-size:90% !important">1</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio18" name="customRadio7" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio18"><span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio19" name="customRadio7" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio19"><span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น </li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    เมื่อสาเหตุเกิดขึ้นน้อยมาก หรือประมาณ 1คร้ังต่อปี หรือมีความถี่
+                                    น้อยกว่าน้น
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    เมื่อสาเหตุเกิดขึ้นบางครั้ง หรือมากกว่า 1คร้ังต่อปี แต่น้อยกว่า 1 ครั้งต่อเดือน
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    เมื่อสาเหตุเกิดขึ้นบ่อยครั้ง หรือประมาณ 1 ครั้งต่อเดือน
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Occurrence Frequency Level</li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    When the cause is rarely occurring or around 1 time per year or
+                                    longer than that.
+
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    When the cause is occur in sometimes or more than 1 time per
+                                    year but longer than 1 time per month.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    When the cause always occur in every times or around 1
+                                    time per month.
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row  align-items-center">
+                        <div class="col-3">                         
+                            <div class="form-group">
+                                <label>
+                                    Detection Level<br />
+                                    การตรวจจับการเกิดปัญหา
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio20" name="customRadio8" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio20"><span class="badge badge-pill badge-success" style="font-size:90% !important">1</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio21" name="customRadio8" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio21"><span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadio22" name="customRadio8" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio22"><span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">การตรวจจับการเกิดปัญหา</li>
+                                <li class="list-group-item">
+                                    ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    เมื่อมีระบบตรวจจับอัตโนมัติ
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    เมื่อมีการตรวจจับโดยใช้เครื่องมือวัด
+                                </li>
+                                <li class="list-group-item">
+                                    ประเมิน
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    เมื่อมีการตรวจจับโดยใช้สายตาหรือความรู้สึก
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Detection Level</li>
+                                <li class="list-group-item">
+                                    Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                    When there are automatic detect.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                    When there are detect manually with the measuring
+                                    equipments.
+                                </li>
+                                <li class="list-group-item">
+                                    Give
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                    When there are detect manually with visual check or
+                                    feeling
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>
+                                    RPN: Risk Priority Number <br />
+                                    (or Opportunity Priority Number)
+                                </label>
+                                <input class="form-control" type="number" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Level of Risk <br />
+                                    ระดับความเสี่ยง
+                                </label>
+                                <input class="form-control" type="text" readonly />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">ระดับความเสี่ยง(Level of Risk)</li>
+                                <li class="list-group-item">
+                                    <span class="badge badge-pill badge-success" style="font-size:90% !important">Low Risk (L)</span>
+                                    เมื่อ RPN มีค่าระหว่าง 1 - 4
+
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">Moderate Risk (M)</span>
+                                    เมื่อ RPN มีค่าระหว่าง 6 - 9
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">High Risk (H)</span>
+                                    เมื่อ RPN มีค่าระหว่าง 12 - 27
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li class="list-group-item active">Level of Risk</li>
+                                <li class="list-group-item">
+                                    <span class="badge badge-pill badge-success" style="font-size:90% !important">Low Risk (L)</span>
+                                    While the RPN is in range 1 - 4
+
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-warning" style="font-size:90% !important">Moderate Risk (M)</span>
+                                    While the RPN is in range 6 - 9
+                                </li>
+                                <li class="list-group-item">
+
+                                    <span class="badge badge-pill badge-danger" style="font-size:90% !important">High Risk (H)</span>
+                                    While the RPN is in range 12 - 27
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-success">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div> 

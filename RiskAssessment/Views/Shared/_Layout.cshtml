@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RiskAssessment</title>
+    <link rel="icon" href="@Url.Content("~/favicon.ico")" />
+    <partial name="_Styles"/>
+
+</head>
+<body class="body-bg" style="background-color:#714ead">
+
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <div class="horizontal-main-wrapper">
+        <partial name="_MainNavigation" />
+
+
+
+        <div class="main-content-inner" >
+                    <div class="container" id="main-content" >
+                        @RenderBody()
+                    </div>
+                </div>
+       
+    </div>
+
+   
+    <partial name="_Footer" />
+
+
+    <partial name="_Scripts"/>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

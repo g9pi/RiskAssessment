@@ -1,0 +1,153 @@
+﻿
+<div class="fixed-top">
+    <div class="header-area header-bottom  ">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                 <div class="col-md-1">
+                    <div class="logo">
+                        <a href="index.html"><img src="~/assets/images/icon/logo2.png" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="col-lg-7 mr-auto  d-none d-lg-block">
+                    <div class="horizontal-menu">
+                        <nav>
+                            <ul id="nav_menu">
+                                <li>
+                                    <a asp-action="@HomeController.ActionIndex" asp-controller="@HomeController.Name">
+                                        <i class="ti-dashboard"></i><span>dashboard</span>
+                                    </a>
+                                    
+                                </li>
+                                <li class="mega-menu">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-flag"></i><span>
+                                            Risk Assessment (ISO 9001)
+                                        </span>
+                                    </a>
+                                    <ul class="submenu">
+                                        
+                                        <li><a asp-action="@OrganizationRiskController.ActionIndex" asp-controller="@OrganizationRiskController.Name">1. Organization Risk and Opportunity</a></li>
+                                        <li><a href="#">2. Risk and Opportunity from needs and expectations of interested parties</a></li>
+                                        <li><a asp-action="@ProcessRiskController.ActionProcessRisk" asp-controller="@ProcessRiskController.Name">3. Process Risk and Opportunity</a></li>
+                                        <li><a asp-action="@ProductRiskController.ActionProductRiskList" asp-controller="@ProductRiskController.Name">4. Product Risk</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-exclamation-triangle"></i><span>Hazard Identifications (ISO 45001)</span>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li><a href="#">Hazard Identifications </a></li>
+                                        
+                                    </ul>
+                                </li>
+
+                                <li class="@Url.MakeActiveClassCTL("Account")">
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-settings"></i>
+                                        <span>Settings</span>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="@Url.MakeActiveClass("Account","AccountsList")"><a href="@Url.Action(AccountController.ActionAccountsList,AccountController.Name)">Account Setting</a></li>
+                                        @*<li><a href="login2.html">Dropdown Value Control</a></li>*@
+                                        
+                                
+                                    </ul>
+                                </li>
+                                
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-auto text-right">
+
+                    <ul class="notification-area pull-right">
+                    <li class="dropdown">
+                        <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                            <span>2</span>
+                        </i>
+                        <div class="dropdown-menu bell-notify-box notify-box">
+                            <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+                            <div class="nofity-list">
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                    <div class="notify-text">
+                                        <p>You have Changed Your Password</p>
+                                        <span>Just Now</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                    <div class="notify-text">
+                                        <p>New Commetns On Post</p>
+                                        <span>30 Seconds ago</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
+                                    <div class="notify-text">
+                                        <p>Some special like you</p>
+                                        <span>Just Now</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                    <div class="notify-text">
+                                        <p>New Commetns On Post</p>
+                                        <span>30 Seconds ago</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
+                                    <div class="notify-text">
+                                        <p>Some special like you</p>
+                                        <span>Just Now</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                    <div class="notify-text">
+                                        <p>You have Changed Your Password</p>
+                                        <span>Just Now</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notify-item">
+                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                    <div class="notify-text">
+                                        <p>You have Changed Your Password</p>
+                                        <span>Just Now</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+                <!-- mobile_menu -->
+                <div class="col-auto text-right">
+                    <div class="clearfix d-md-inline-block d-block">
+                        <div class="user-profile m-0">
+                            <div class="avatar avatar-md" id="profileimg">
+
+                            </div>
+                           @* <img class="avatar user-thumb" src="~/assets/images/author/avatar.png"
+                                 alt="avatar">*@
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                               @Context.User.FindFirstValue(AccountClaim.Name) <i class="fa fa-angle-down"></i>
+                            </h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-action="@AccountController.ActionProfile" asp-controller="@AccountController.Name">Profile</a>
+                                <a class="dropdown-item" asp-action="@AuthenticationController.ActionLogout" asp-controller="@AuthenticationController.Name">Sign Out</a>
+                                @*<a class="dropdown-item" href="#">Log Out</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-block d-lg-none">
+                    <div id="mobile_menu"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

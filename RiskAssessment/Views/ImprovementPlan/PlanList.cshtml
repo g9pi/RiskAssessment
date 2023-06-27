@@ -1,0 +1,118 @@
+﻿@{
+
+    ViewData["Title"] = "Improvement Plan";
+}
+<div id="app">
+    <div class="pt-3">
+        <h3 class="pt-5 text-white">@ViewData["Title"]  : P7EV</h3>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="user_sec" class="col-form-label">Division</label>
+
+                                <select class="custom-select">
+                                    <option Value="General Production">General Production</option>
+                                    @* @foreach (var item in Model.Division_ddl)
+                                    {
+                                    <option value="@item.Value">@item.Text</option>
+                                    }*@
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="user_sec" class="col-form-label">Section</label>
+
+                                <select class="custom-select">
+                                    <option Value="P7EV">P7EV</option>
+                                    @* @foreach (var item in Model.Division_ddl)
+                                    {
+                                    <option value="@item.Value">@item.Text</option>
+                                    }*@
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <partial name="ProcessRiskSubMenu" />
+
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Improvement Plan</h5>
+                        </div>
+                        <div class="col-auto ml-auto">
+                            <a class="btn btn-primary" href="@Url.Action(ImprovementPlanController.ActionPlanCreate,ImprovementPlanController.Name)"><i class="fa fa-plus-circle"></i> New Improvement Plan</a>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr >
+                                    <th class="text-center">No.</th>
+                                    <th class="text-center">Process<br />กระบวนการ</th>
+                                    <th class="text-center">Risk or Opportunity<br />ความเสี่ยงหรือโอกาส</th>
+                                    <th class="text-center">Actions items<br />รายละเอียดการดำเนินการ</th>
+                                    <th class="text-center">Resource<br />ทรัพยากร</th>
+                                    <th class="text-center">Action by<br />ผู้ดำเนินการ</th>
+                                    <th class="text-center">Start Date<br />วันที่เริ่ม</th>
+                                    <th class="text-center">Finish Date<br />วันที่เสร็จ</th>
+                                    <th class="text-center">Status of Actions<br />สถานะการดำเนินการ</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(ImprovementPlanController.ActionPlanDetail,ImprovementPlanController.Name)'">
+                                    <td class="text-center">1</td>
+                                    <td>EDS</td>
+                                    <td>สภาพของวัสดุที่ต้องการทิ้ง มีการเปลี่ยนหลังจากประมูลราคาแล้ว / ผู้รับเหมาไม่รับของ / ต้องประมูลราคาใหม่</td>
+                                    <td>
+                                        ส่งเรื่อง EDS เฉพาะที่พร้อม Load ให้กับ G5PU เท่านั้น (เพื่อป้องกันไม่ให้มีการเปลี่ยนแปลงหลังจากประมูลราคา)
+                                    </td>
+                                    <td></td>
+                                    <td style="white-space:nowrap">Teerapong M.</td>
+                                    <td style="white-space:nowrap">2020-01-01</td>
+                                    <td style="white-space:nowrap">2020-12-31</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                                <tr style="cursor:pointer;" onclick="alert('Click')">
+                                    <td class="text-center">2</td>
+                                    <td>Pallet </td>
+                                    <td>พาเลทล้นในพื้นที่ / จำนวนพาเลทมากเกินไป </td>
+                                    <td>
+                                        ขายหรือส่งกำจัดพาเลทเก่า ออกจากพื้นที่
+                                    </td>
+                                    <td></td>
+                                    <td style="white-space:nowrap">Tana E.</td>
+                                    <td style="white-space:nowrap">2023-02-01</td>
+                                    <td style="white-space:nowrap">2023-03-01</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+               
+            </div>
+        </div>
+    </div>
+</div>

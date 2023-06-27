@@ -1,0 +1,60 @@
+﻿@model PaginationModel
+<div class="row mb-2">
+    <div class="col-auto">
+        <p class="mt-1">Showing @Model.PageFrom.ToAutoString() to @Model.PageTo.ToAutoString() of @Model.TotalItem.ToAutoString() entries</p>
+    </div>
+    <div class="col-auto">
+        <p class="">
+            Show
+            <select class="custom-select" id="pagesize" style="width:fit-content" value="@Model.PageSize">
+                <option value="10">10</option>
+                @if(Model.TotalItem > 10)
+                {
+                    <option value="30">30</option>
+                }
+                @if (Model.TotalItem > 30)
+                {
+                    <option value="50">50</option>
+                }
+               
+            </select>
+            of entries
+        </p>
+    </div>
+    <div class="col ml-auto">
+        <nav aria-label="...">
+            <ul class="pagination justify-content-end">
+                
+                @*@if (Model.IsPrevious)
+                {
+
+                    <li class="page-item"><a class="page-link" onclick="gopage(@(Model.Page-1))">@((Model.Page - 1).ToAutoString())</a></li>
+                }else{
+                    <li class="page-item @(!Model.IsPrevious ? "disabled" : null)">
+                        <a class="page-link" onclick="gopage(@(Model.Page-1))" tabindex="-1">Previous</a>
+                    </li>
+                }*@
+               
+                <li class="page-item @(!Model.IsPrevious ? "disabled" : null)">
+                    <a class="page-link" href="javascript:gopage(@(Model.Page-1))" tabindex="-1">Previous</a>
+                </li>
+                @for (int i = 0; i <= 3; i++)
+                {
+                    @if (1 <= Model.Page + i && Model.Page + i <= Model.TotalPage)
+                    {
+                        <li class="page-item @(Model.Page + i == Model.Page ? "active" : "")">
+                            <a class="page-link" href="javascript:gopage(@(Model.Page+1))"> @((Model.Page + i).ToAutoString()) <span class="sr-only">(current)</span></a>
+                        </li>
+                        @*<a class="@(Model.Page + i == Model.Page ? "active" : "") item" onclick="gotoPage(@(Model.Page + i))">@(Model.Page + i)</a>*@
+                    }
+                }
+                <li class="page-item @(!Model.IsNext ? "disabled" : null)">
+                    <a class="page-link " href="javascript:gopage(@(Model.Page+1))">Next</a>
+                </li>
+           
+               
+                
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿<div class="row pt-2">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body pb-2">
+                <h5>Sub Menu</h5>
+                <hr />
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link @Url.MakeActiveClass(ProcessRiskController.Name,ProcessRiskController.ActionProcessRisk)" id="pills-home-tab" href="@Url.Action(ProcessRiskController.ActionProcessRisk,ProcessRiskController.Name)" role="tab" aria-controls="pills-home" aria-selected="true">Processes & Risks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @Url.MakeActiveClass(ImprovementPlanController.Name,ImprovementPlanController.ActionPlanList)" id="pills-profile-tab" href="@Url.Action(ImprovementPlanController.ActionPlanList,ImprovementPlanController.Name)" role="tab" aria-controls="pills-profile" aria-selected="false">Improvement Plan</a>
+                    </li>
+                    <li class="nav-item">
+                        @* <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Interaction between processes/parties</a>*@
+                        <div class="dropdown" style="cursor:pointer">
+                            <a class="nav-link  dropdown-toggle" @* type="button"*@ data-toggle="dropdown" aria-expanded="false">
+                                Interaction between processes/parties
+                            </a>
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(15px, 43px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                <a class="dropdown-item" href="javascript:showFile('@Url.Action(StorageController.ActionGetImage, StorageController.Name,new {name = "Sample Flow.jpg"})',1)">Revision 1</a>
+                                <a class="dropdown-item" href="javascript:showFile('@Url.Action(StorageController.ActionGetImage, StorageController.Name,new {name = "Sample Flow(2).jpg"})',2)">Revision 2</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:uploadFile()"><i class="fa fa-plus-circle"></i> New Revision</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function showFile(imgurl,rev){
+        
+        Swal.fire({
+            title: 'Revision '+rev,            
+            imageUrl: imgurl,
+            width:'50em',
+            imageAlt: 'Custom image',
+        })
+    }
+
+    function uploadFile() {
+        (async () => {
+
+            const { value: file } = await Swal.fire({
+                title: 'Select image',
+                input: 'file',
+                inputAttributes: {
+                    'accept': 'image/*',
+                    'aria-label': 'Upload your profile picture'
+                }
+            })
+
+            if (file) {
+                const reader = new FileReader()
+                reader.onload = (e) => {
+                    Swal.fire({
+                        title: 'Your uploaded picture',
+                        imageUrl: e.target.result,
+                        imageAlt: 'The uploaded picture'
+                    })
+                }
+                reader.readAsDataURL(file)
+            }
+
+        })()
+    }
+</script>
+

@@ -1,0 +1,415 @@
+﻿@model EditUserModel
+@{
+
+    ViewData["Title"] = "Profile";
+}
+
+<div id="app">
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col pt-2">
+                <h3 class=" text-white">Profile</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                @*<a class="btn btn-outline-warning text-white" asp-action="@AccountController.ActionAccountsList"
+                   asp-controller="@AccountController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>*@
+
+            </div>
+        </div>
+    </div>
+    
+   
+    <div class="row pt-2">
+        <div class="col-sm-4 pt-1">
+            <div class="card">
+                <div class="card-body align-items-center d-flex justify-content-center">
+                    <div class="image-upload">
+                        <label class="avatar me-3" for="file-input">
+                            <img src="@Url.Action(StorageController.ActionGetImage, StorageController.Name, new { name = Model.User.ImageName })" class="rounded-circle" alt="" srcset="" style="width:200px;height:200px; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                 title="Click to upload image" v-if="UserAccount.imageName != null">
+                            <img src="~/assets/images/avatar/avatar_final.png" class="rounded-circle" alt="" srcset="" style="width:200px;height:200px; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top"
+                                 title="Click to upload image" v-else>
+                        </label>
+                        <input id="file-input" name="file" type="file" style="display: none !important;" accept="image/*" @@change="uploadFile($event)" />
+                    </div>
+                    <br />
+                   
+                </div>
+                <div class="card-footer">
+                    <label>Lasted update : @Model.User.ModifyDate?.ToString("yyyy-MM-dd HH:mm")</label>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-sm-8 pt-1">
+            <div class="card">
+                @*<div class="card-header">
+                   
+                </div>*@
+                
+                <div class="card-body">
+                    <h5 class="card-title">Account Detail</h5>
+                    <hr />
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link  active show" id="Profile_nav" data-toggle="tab" href="#profile_tab" role="tab" aria-controls="Profile-tab">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="security_nav" data-toggle="tab" href="#chngpasswrd_tab" role="tab" aria-controls="Change-Password">Change Password</a>
+                        </li>
+                        
+                    </ul>
+                    <div class="tab-content mt-3" id="myTabContent">
+                        <div class="tab-pane fade show active" id="profile_tab" role="tabpanel" aria-labelledby="Profile-tab">
+                            <form id="myForm" method="post" v-on:submit.prevent="saveUser">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="emp_username" class="col-form-label">Username</label>
+                                            <input class="form-control" type="text" id="emp_username" v-model="UserAccount.username" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="emp_no" class="col-form-label">Employee No.</label>
+                                            <input class="form-control" type="text" id="emp_no" v-model="UserAccount.employeeNo">
+                                            <div class="invalid-feedback">
+                                                This Employee No.is already exists.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label for="emp_name" class="col-form-label">Name</label>
+                                            <input class="form-control" type="text" id="emp_name" v-model="UserAccount.name">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="user_sec" class="col-form-label">Division</label>
+                                            @*<input class="form-control" type="text" id="user_sec" v-model="UserAccount.division">*@
+                                            <select class="custom-select" v-model="UserAccount.division">
+                                                @foreach (var item in Model.Division_ddl)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="user_sec" class="col-form-label">Section</label>
+                                            @*<input class="form-control" type="text" id="user_sec" v-model="UserAccount.section">*@
+                                            <select class="custom-select" v-model="UserAccount.section">
+                                                @foreach (var item in Model.Section_ddl)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="emp_email" class="col-form-label">Email Address</label>
+                                            <input class="form-control" type="email" id="emp_email" v-model="UserAccount.email">
+                                            <div class="invalid-feedback" id="invalid_email">
+                                                This Email address is already exists.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="emp_group" class="col-form-label">Group</label>
+                                            <select class="custom-select" v-model="UserAccount.group" disabled>
+                                                <option value="" disabled></option>
+                                                @if (Model.User.UserId == 1)
+                                                {
+                                                    <option value="Webmaster">Webmaster</option>
+                                                }
+
+                                                <option value="Administrator">Administrator</option>
+                                                <option value="Maintain">Maintain</option>
+                                                <option value="Reader">Reader</option>
+                                            </select>
+                                            @*<input class="form-control" type="email" id="emp_group" v-model="UserAccount.Group">*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn btn-success" type="submit">Save Change</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="chngpasswrd_tab" role="tabpanel" aria-labelledby="Change-Password">
+                            
+                            <form id="changePassForm" method="post" v-on:submit.prevent="savePassword">
+                                <input style="display:none" type="text" v-model="changePassword.Username" />
+                                <input style="display:none" type="text" v-model="changePassword.UserId" />
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="form-group">
+                                            <label for="old_pass" class="col-form-label">Old Password</label>
+                                            <input class="form-control" type="password" id="old_pass" v-model="changePassword.OldPassword" required>
+                                            <div class="invalid-feedback">
+                                                Old Password is wrong.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="form-group">
+                                            <label for="new_pass" class="col-form-label">New Password</label>
+                                            <input class="form-control" type="password" id="new_pass" v-model="changePassword.NewPassword" required>
+                                            <div class="invalid-feedback" id="newpass-feedback">
+                                                New Password & Confirm New Password it doesn't match!
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="renew_pass" class="col-form-label">Confirm New Password</label>
+                                            <input class="form-control" type="password" id="renew_pass" v-model="changePassword.ConfirmPassword" required>
+                                            <div class="invalid-feedback" id="conpass-feedback">
+                                                New Password & Confirm New Password it doesn't match!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn btn-success" type="submit">Save Change</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
+                       
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    
+</div>
+
+
+@section Scripts{
+    <script>
+        const model = @Html.Raw(Json.Serialize(Model))
+        const { createApp } = Vue
+        const app =  createApp({
+            data() {
+                return {                    
+                    UserAccount:{
+                        username:"",
+                        employeeNo:"",
+                        name:"",
+                        section:"",
+                        email:"",
+                        group:""
+                    },
+                    changePassword:{
+                        Username:"",
+                        UserId:"",
+                        OldPassword:"",
+                        NewPassword:"",
+                        ConfirmPassword:""
+                    }
+                }
+            },
+            mounted: function () {
+             
+            },
+            methods: {
+                savePassword() {
+                    var form_invalid = false
+                    if (app.changePassword.NewPassword != app.changePassword.ConfirmPassword) {
+                        var feedback = "New Password & Confirm New Password it doesn't match!"
+                        $("#newpass-feedback").html(feedback);
+                        $("#conpass-feedback").html(feedback);
+                        $('#new_pass').addClass('is-invalid')
+                        $('#renew_pass').addClass('is-invalid')
+                        
+                        form_invalid = true
+                    }
+                    if(app.changePassword.NewPassword == app.UserAccount.employeeNo){
+                        var feedback = "Can't use your Employee Number as your password."
+                        $("#newpass-feedback").html(feedback);
+                        $("#conpass-feedback").html(feedback);
+                        $('#new_pass').addClass('is-invalid')
+                        $('#renew_pass').addClass('is-invalid')
+                        form_invalid = true
+                    }
+                    if(!form_invalid){
+                        $.ajax({
+                            url: '@Url.Action(AccountController.ActionChangePassword, AccountController.Name)',
+                            method: 'POST',
+                            data: {
+                                input: app.changePassword
+                            },
+                            success: function (res) {
+                                if(res.code == 400){
+                                    $('#old_pass').addClass('is-invalid')
+                                }else if(res.code == 200){
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Password has been changed',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    var delayInMilliseconds = 1500; //1 second
+
+                                    setTimeout(function () {
+                                        window.location.reload()
+                                        //your code to be executed after 1 second
+                                    }, delayInMilliseconds);
+                                }
+                            }
+                        });
+                    }
+                    //console.log(this.changePassword)
+                    
+                },
+                saveUser() {
+                    $.ajax({
+                        url: '@Url.Action(AccountController.ActionIsUnique, AccountController.Name)',
+                        method: 'POST',
+                        data: {
+                            input: app.UserAccount
+                        },
+                        success: function (res) {
+                            var res_data = res
+                            var form_invalid = false
+                            //if (!res_data.username) {
+                            //    $('#emp_username').addClass('is-invalid')
+                            //}
+                            if (!res_data.email && '@Model.User.Email' != app.UserAccount.email) {
+                                $('#emp_email').addClass('is-invalid')
+                                form_invalid = true
+                            }
+                            if (!res_data.empNo && '@Model.User.EmployeeNo' != app.UserAccount.employeeNo) {
+                                $('#emp_no').addClass('is-invalid')
+                                form_invalid = true
+                            }
+                            //if (!res_data.empNo || !res_data.email ) {
+                            //    form_invalid = true
+
+                            //}
+                            if (!form_invalid) {
+
+
+                                $.ajax({
+                                    url: '@Url.Action(AccountController.ActionSaveUser, AccountController.Name)',
+                                    method: 'POST',
+                                    data: {
+                                        User: app.UserAccount
+                                    },
+                                    success: function (res) {
+                                        Swal.fire({
+
+                                            icon: 'success',
+                                            title: 'User accound has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        })
+                                        var delayInMilliseconds = 1500; //1 second
+
+                                        setTimeout(function () {
+                                            window.location.reload()
+                                            //your code to be executed after 1 second
+                                        }, delayInMilliseconds);
+                                    },
+                                    error: function (res) {
+                                        console.error(res)
+                                    }
+                                })
+                            }
+                            //event.preventDefault();
+                        },
+                        error: function (res) {
+                            console.error(res)
+                        }
+                    })
+                },              
+               
+                uploadFile(e) {
+                    var app = this
+                    var model = {
+                        
+                        userId: this.UserAccount.userId,
+                        file: e.target.files[0]
+                    }
+                    var form_data = new FormData();
+                    for (var key in model) {
+                        form_data.append(key, model[key]);
+                    }
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        url: '@Url.Action(StorageController.ActionSaveImageProfile,StorageController.Name)',
+                        dataType: "json",
+                        contentType: "multipart/form-data",
+                        data: form_data,
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                        success: function (response) {
+                            window.location.reload()
+                        },
+                        error: function (err) {
+                            console.error(err);
+                        }
+                    });
+                },
+
+                
+            },
+            watch:{
+                
+            }
+           
+        }).mount('#app');
+        $(function () {
+            // Set values to v-model UserAccount
+            app.UserAccount = model.user
+            app.changePassword.Username = model.user.username
+            app.changePassword.UserId= model.user.userId
+            console.log(app.changePassword)
+                    
+            $(".form-control").on("keyup keypress blur change", function () {
+                $(this).removeClass('is-invalid')
+
+            });
+         
+        });
+
+        $(document).ready(function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+
+            // store the currently selected tab in the hash value
+            $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+                var id = $(e.target).attr("href").substr(1);
+                window.location.hash = id;
+            });
+
+            // on load of the page: switch to the currently selected tab
+            var hash = window.location.hash;
+            $('#myTab a[href="' + hash + '"]').tab('show');
+
+        });
+        
+    </script>
+}

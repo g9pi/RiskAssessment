@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "vue@3.3.4",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "library": "select2-bootstrap-theme@0.1.0-beta.10",
+      "destination": "wwwroot/lib/select2/css/select2-bootstrap-theme/"
+    },
+    {
+      "library": "apexcharts@3.41.0",
+      "destination": "wwwroot/lib/apexcharts/"
+    }
+  ]
+}

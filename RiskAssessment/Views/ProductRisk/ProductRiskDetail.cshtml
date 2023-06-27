@@ -1,0 +1,600 @@
+﻿@{
+    ViewData["Title"] = "Product Risk Detail";
+}
+<div id="app">
+   
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col pt-2">
+                <h3 class=" text-white">@ViewData["Title"]</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                <a class="btn btn-outline-warning text-white" asp-action="@ProductRiskController.ActionProductRiskList"
+                   asp-controller="@ProductRiskController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Product Name : AAP</h5>
+                        </div>
+
+                        <div class="col-auto ml-auto">
+                            <a class="btn btn-warning" href="@Url.Action(ProductRiskController.ActionProductRiskEdit,ProductRiskController.Name)"><i class="fa fa-pencil"></i> Edit</a>
+                        </div>
+                    </div>
+                   
+                    <hr />
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th class="align-middle">
+                                    Potential Failure Mode <br />
+                                    ข้อบกพร่องที่มีแนวโน้มจะเกิดขึ้น
+                                </th>
+                                <td class="align-middle">ชิ้นงานในกล่องบรรจุภัณฑ์ไม่ครบ</td>
+                                <td width="30%"></td>
+                                <td width="30%"></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Potential Effect(s) of Failure <br />
+                                    แนวโน้มผลกระทบที่จะเกิด
+                                </th>
+                                <td class="align-middle">ลูกค้าไม่ยอมรับผลิตภันฑ์ทั้งล็อต</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Severity or Level of Opportunit (SEV) <br />
+                                    ระดับความรุนแรงของผลกระทบ
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-warning" style="font-size:100% !important">2</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ระดับความรุนแรงของผลกระทบ </li>
+                                        <li class="list-group-item">ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span> เมื่อมีผลกระทบในระดับเล็กน้อย ได้แก่ Minor Defect</li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            เมื่อมีผลกระทบในระดับรุนแรงได้แก่ Major Defect หรือ Minor Defect
+                                            ที่เกินจำนวนที่ยอมรับได้
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            เมื่อมีผลกระทบในระดับวิกฤติได้แก่ Critical Defect หรือ Major Defect
+                                            ที่เกินจำนวนที่ยอมรับได้
+                                        </li>
+
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Severity or Level of Opportunity</li>
+                                        <li class="list-group-item">Give 
+                                            <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span> 
+                                            When there is a small impact such as Minor Defect
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            When there is a huge impact such as Major Defect or Minor Defect by
+                                            over the acceptable limit.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            When there is a critical impact such as Critical Defect or Major Defect
+                                            by over the acceptable limit.
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Class of Failure and Effect <br />
+                                    ประเภทของปัญหาและผลกระทบ
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-danger" style="font-size:100% !important">C</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ประเภทของปัญหาและผลกระทบ</li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                            สำหรับปัญหาและผลกระทบทั่วไป (Normal) เป็นประเด็นเล็กน้อย ไม่เสี่ยง
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                            สำหรับปัญหาและผลกระทบที่วิกฤติ(Critical) มีความสำคัญเป็นพิเศษ
+                                            เสี่ยงต่อการทำให้เกิดการเสียความเชื่อมมั่นในบริษัท หรือเป็นประเด็นที่ลูกค้า
+                                            หรือผู้ใช้ผลิตภัณฑ์ให้ความสำคัญเป็นพิเศษ
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Class of Failure and Effect</li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                            For normal failure and impact which is minor issue that is no risk to
+                                            lost the trust of customer or product user on the company.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                            For critical failure or impact which is a special important that risk to
+                                            get lost the trust in company or be the issue which the customer or
+                                            product user gives the special prioritizes.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Potential Cause(s)<br />
+                                    Mechanism(s) of Failure <br />
+                                    สิ่งที่น่าจะเป็นสาเหตุ
+                                </th>
+                                <td class="align-middle">พนักงานไม่ได้เปิดดู Web spec ก่อนที่จะแพ็คชิ้นงานใส่บรรจุภัณฑ์</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Occurrence Frequency Level (O)<br />
+                                    ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น 
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-success" style="font-size:100% !important">1</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น </li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            เมื่อสาเหตุเกิดขึ้นน้อยมาก หรือประมาณ 1คร้ังต่อปี หรือมีความถี่
+                                            น้อยกว่าน้น
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            เมื่อสาเหตุเกิดขึ้นบางครั้ง หรือมากกว่า 1คร้ังต่อปี แต่น้อยกว่า 1 ครั้งต่อเดือน
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            เมื่อสาเหตุเกิดขึ้นบ่อยครั้ง หรือประมาณ 1 ครั้งต่อเดือน
+                                        </li>
+
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Occurrence Frequency Level</li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            When the cause is rarely occurring or around 1 time per year or
+                                            longer than that.
+
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            When the cause is occur in sometimes or more than 1 time per
+                                            year but longer than 1 time per month.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            When the cause always occur in every times or around 1
+                                            time per month.
+
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Prevent <br />
+                                    การป้องกันสาเหตุ
+                                </th>
+                                <td class="align-middle">ให้พนักงานเปิดดู Web spec และ เตรียมชิ้นงาน ก่อนที่จะแพ็คใส่บรรจุภัณฑ์</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Detect by <br />
+                                    ตรวจสอบความผิดพลาดโดย
+                                </th>
+                                <td class="align-middle">QA ตรวจสอบด้วยSpec.ตาม SKU และ เครื่องชั่งน้ำหนักหากน้ำหนักเกินจากค่า + - ที่กำหนดใน Spec. ให้ Reject.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Detection Level<br />
+                                    การตรวจจับการเกิดปัญหา
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-success" style="font-size:100% !important">1</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">การตรวจจับการเกิดปัญหา</li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            เมื่อมีระบบตรวจจับอัตโนมัติ
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            เมื่อมีการตรวจจับโดยใช้เครื่องมือวัด
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            เมื่อมีการตรวจจับโดยใช้สายตาหรือความรู้สึก
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Detection Level</li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            When there are automatic detect.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            When there are detect manually with the measuring
+                                            equipments.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            When there are detect manually with visual check or
+                                            feeling
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="align-middle">
+                                    RPN: Risk Priority Number <br />
+                                    (or Opportunity Priority Number)
+                                </th>
+                                <td class="align-middle">6</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Level of Risk<br />
+                                    ระดับความเสี่ยง
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-warning" style="font-size:100% !important">Moderate (M) </span></td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ระดับความเสี่ยง(Level of Risk)</li>
+                                        <li class="list-group-item">
+                                            <span class="badge badge-pill badge-success" style="font-size:90% !important">Low Risk (L)</span>
+                                            เมื่อ RPN มีค่าระหว่าง 1 - 4
+
+                                        </li>
+                                        <li class="list-group-item">
+
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">Moderate Risk (M)</span>
+                                            เมื่อ RPN มีค่าระหว่าง 6 - 9
+                                        </li>
+                                        <li class="list-group-item">
+
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">High Risk (H)</span>
+                                            เมื่อ RPN มีค่าระหว่าง 12 - 27
+                                        </li>
+
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Level of Risk</li>
+                                        <li class="list-group-item">
+                                            <span class="badge badge-pill badge-success" style="font-size:90% !important">Low Risk (L)</span>
+                                            While the RPN is in range 1 - 4
+
+                                        </li>
+                                        <li class="list-group-item">
+
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">Moderate Risk (M)</span>
+                                            While the RPN is in range 6 - 9
+                                        </li>
+                                        <li class="list-group-item">
+
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">High Risk (H)</span>
+                                            While the RPN is in range 12 - 27
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="row  pt-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Action Result (การปรับปรุง)</h5>
+                    <hr />
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th class="align-middle">
+                                    Reaction<br />
+                                    มาตรการ
+                                </th>
+                                <td class="align-middle">
+                                    1. Production ต้องส่งงาน กล่องแรกให้ QA ตรวจก่อน <br />
+                                    2. ให้พนักงานเอาใจใส่ในการทำงานให้มากขึ้น <br />
+                                    3. ให้พนักงานเช็คชิ้นงานใน Web spec ก่อนที่จะแพ็คใส่บรรจุภัณฑ์ <br />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Responsible by<br />
+                                    ดำเนินการโดย
+                                </th>
+                                <td class="align-middle">
+                                    22PK
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Target<br />
+                                    เป้าหมาย
+                                </th>
+                                <td class="align-middle">
+                                    ชิ้นงานในกล่อง บรรจุภัณฑ์ครบไม่พบชิ้นงานหาย
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Expecting Completed Date<br />
+                                    วันที่จะเสร็จ
+                                </th>
+                                <td class="align-middle">
+                                    2019-6-25
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Action Taken<br />
+                                    มาตรการที่ดำเนินการไป
+                                </th>
+                                <td class="align-middle">
+                                    ทำ Checklist สำหรับตรวจสอบชิ้นงานและรูปแบบการบรรจุที่ถูกต้องก่อนบรรจุผลิตภัณฑ์
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Severity or Level of Opportunit (SEV) <br />
+                                    ระดับความรุนแรงของผลกระทบ
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-warning" style="font-size:100% !important">2</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ระดับความรุนแรงของผลกระทบ </li>
+                                        <li class="list-group-item">ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span> เมื่อมีผลกระทบในระดับเล็กน้อย ได้แก่ Minor Defect</li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            เมื่อมีผลกระทบในระดับรุนแรงได้แก่ Major Defect หรือ Minor Defect
+                                            ที่เกินจำนวนที่ยอมรับได้
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            เมื่อมีผลกระทบในระดับวิกฤติได้แก่ Critical Defect หรือ Major Defect
+                                            ที่เกินจำนวนที่ยอมรับได้
+                                        </li>
+
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Severity or Level of Opportunity</li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            When there is a small impact such as Minor Defect
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            When there is a huge impact such as Major Defect or Minor Defect by
+                                            over the acceptable limit.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            When there is a critical impact such as Critical Defect or Major Defect
+                                            by over the acceptable limit.
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Class of Failure and Effect <br />
+                                    ประเภทของปัญหาและผลกระทบ
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-danger" style="font-size:100% !important">C</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ประเภทของปัญหาและผลกระทบ</li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                            สำหรับปัญหาและผลกระทบทั่วไป (Normal) เป็นประเด็นเล็กน้อย ไม่เสี่ยง
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                            สำหรับปัญหาและผลกระทบที่วิกฤติ(Critical) มีความสำคัญเป็นพิเศษ
+                                            เสี่ยงต่อการทำให้เกิดการเสียความเชื่อมมั่นในบริษัท หรือเป็นประเด็นที่ลูกค้า
+                                            หรือผู้ใช้ผลิตภัณฑ์ให้ความสำคัญเป็นพิเศษ
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Class of Failure and Effect</li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-warning" style="font-size:90% !important">N</span>
+                                            For normal failure and impact which is minor issue that is no risk to
+                                            lost the trust of customer or product user on the company.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-danger" style="font-size:90% !important">C</span>
+                                            For critical failure or impact which is a special important that risk to
+                                            get lost the trust in company or be the issue which the customer or
+                                            product user gives the special prioritizes.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Occurrence Frequency Level (O)<br />
+                                    ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-success" style="font-size:100% !important">1</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">ความถี่ที่จะเกิดสาเหตุของปัญหาขึ้น </li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            เมื่อสาเหตุเกิดขึ้นน้อยมาก หรือประมาณ 1คร้ังต่อปี หรือมีความถี่
+                                            น้อยกว่าน้น
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            เมื่อสาเหตุเกิดขึ้นบางครั้ง หรือมากกว่า 1คร้ังต่อปี แต่น้อยกว่า 1 ครั้งต่อเดือน
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            เมื่อสาเหตุเกิดขึ้นบ่อยครั้ง หรือประมาณ 1 ครั้งต่อเดือน
+                                        </li>
+
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Occurrence Frequency Level</li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            When the cause is rarely occurring or around 1 time per year or
+                                            longer than that.
+
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            When the cause is occur in sometimes or more than 1 time per
+                                            year but longer than 1 time per month.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            When the cause always occur in every times or around 1
+                                            time per month.
+
+                                        </li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="align-middle">
+                                    Detection Level<br />
+                                    การตรวจจับการเกิดปัญหา
+                                </th>
+                                <td class="align-middle"><span class="badge badge-pill badge-danger" style="font-size:100% !important">3</span></td>
+                                <td class="align-middle">
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">การตรวจจับการเกิดปัญหา</li>
+                                        <li class="list-group-item">
+                                            ประเมิน <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            เมื่อมีระบบตรวจจับอัตโนมัติ
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            เมื่อมีการตรวจจับโดยใช้เครื่องมือวัด
+                                        </li>
+                                        <li class="list-group-item">
+                                            ประเมิน
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            เมื่อมีการตรวจจับโดยใช้สายตาหรือความรู้สึก
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">Detection Level</li>
+                                        <li class="list-group-item">
+                                            Give <span class="badge badge-pill badge-success" style="font-size:90% !important">1</span>
+                                            When there are automatic detect.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-warning" style="font-size:90% !important">2</span>
+                                            When there are detect manually with the measuring
+                                            equipments.
+                                        </li>
+                                        <li class="list-group-item">
+                                            Give
+                                            <span class="badge badge-pill badge-danger" style="font-size:90% !important">3</span>
+                                            When there are detect manually with visual check or
+                                            feeling
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="align-middle">
+                                    RPN: Risk Priority Number <br />
+                                    (or Opportunity Priority Number)
+                                </th>
+                                <td class="align-middle">6</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

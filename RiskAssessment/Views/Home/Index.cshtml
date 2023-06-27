@@ -1,0 +1,346 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+@*
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+<div id="app">
+    <div class="row pt-3">
+        <!-- seo fact area start -->
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-5 mt-5 mb-3">
+                    <div class="card">
+                        <div class="seo-fact sbg1">
+                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                <div class="seofct-icon"><i class="fa-solid fa-building"></i> Organization Risk and Opportunity</div>
+                                <h2>20</h2>
+                            </div>
+                            @*<canvas id="seolinechart1" height="50"></canvas>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 mt-md-5 mb-3">
+                    <div class="card">
+                        <div class="seo-fact sbg2">
+                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                <div class="seofct-icon"><i class="fa-solid fa-handshake"></i> Risk and Opportunity from needs and expectations of interested parties</div>
+                                <h2>54</h2>
+                            </div>
+                            @* <canvas id="seolinechart2" height="50"></canvas>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3 mb-lg-0">
+                    <div class="card">
+                        <div class="seo-fact sbg3">
+                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                <div class="seofct-icon"> <i class="fa-solid fa-bars-progress"></i> Process Risk and Opportunity</div>
+
+                                <h2>3,984</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="seo-fact sbg4">
+                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                <div class="seofct-icon"><i class="fa-solid fa-boxes-packing"></i>Product Risk</div>
+
+                                <h2>3,984</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mt-5">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Organization Risk and Opportunity</h4>
+                            <div id="apexchart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Risk and Opportunity from needs and expectations of interested parties</h4>
+                            <div id="apexchart2"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Process Risk and Opportunity (MIL Total)</h4>
+                            <div id="apexchart3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Process Risk and Opportunity (Division)</h4>
+                            <div id="chart5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Product Risk (MIL Total)</h4>
+                            <div id="apexchart4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Product Risk (Division)</h4>
+                            <div id="apexchart6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+</div>
+
+@section Scripts{
+    <script>
+        var options = {
+            series: [5, 3, 1, 2, 1, 1, 2, 4, 3, 1, 2, 4],
+            chart: {
+                width: 600,
+                type: 'pie',
+            },
+            labels: ['Legal', 'Technology', 'Competitive', 'Market', 'Cultural', 'Social', 'Economic Enviroments', 'Political', 'Values', 'Culture', 'Knowledge', 'Perfomance of the organizaion'],
+            responsive: [{
+                breakpoint: 850,
+                options: {
+                    chart: {
+                        width: 450
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+        var options2 = {
+            series: [5, 3, 1],
+            chart: {
+                width: 520,
+                type: 'pie',
+            },
+            labels: ['Low Level', 'Moderate Level', 'High Level'],
+            responsive: [{
+                breakpoint: 620,
+                options: {
+                    chart: {
+                        width: 380
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+        var options3 = {
+            series: [5, 3, 1],
+            chart: {
+                width: 520,
+                type: 'pie',
+            },
+            labels: ['Low Level', 'Moderate Level', 'High Level'],
+            responsive: [{
+                breakpoint: 620,
+                options: {
+                    chart: {
+                        width: 380
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+        var options4 = {
+            series: [5, 3, 1],
+            chart: {
+                width: 520,
+                type: 'pie',
+            },
+            labels: ['Low Level', 'Moderate Level', 'High Level'],
+            responsive: [{
+                breakpoint: 620,
+                options: {
+                    chart: {
+                        width: 380
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+        var options5 = {
+            series: [{
+                name: 'Low Level',
+                data: [44, 55, 41, 67, 22, 43, 50, 84, 55, 11, 23]
+            }, {
+                name: 'Moderate Level',
+                data: [13, 23, 20, 8, 13, 27, 41, 75, 16, 23, 14]
+            }, {
+                name: 'High Level',
+                data: [11, 17, 15, 15, 21, 14, 12, 35, 78, 31, 11]
+            }
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: true
+                },
+                offsetY: 20
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    legend: {
+                        position: 'bottom',
+                        offsetX: 0,
+                        offsetY: -10
+                    }
+                }
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 2,
+                    dataLabels: {
+                        total: {
+                            enabled: true,
+                            style: {
+                                fontSize: '13px',
+                                fontWeight: 900
+                            }
+                        }
+                    }
+                },
+            },
+            xaxis: {
+
+                categories: ['AAP', 'CB', 'CE', 'General Office',
+                    'General Production', 'GL', 'HA', 'MS', 'MSB', 'PVD', 'SS'
+                ],
+            },
+            legend: {
+                position: 'top',
+                offsetY: 0,
+
+            },
+            fill: {
+                opacity: 1
+            }
+        };
+        var options6 = {
+            series: [{
+                name: 'Low Level',
+                data: [44, 55, 41, 67, 22]
+            }, {
+                name: 'Moderate Level',
+                data: [13, 23, 20, 8, 13]
+            }, {
+                name: 'High Level',
+                data: [11, 17, 15, 15, 21]
+            }
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                    show: true
+                },
+                zoom: {
+                    enabled: true
+                },
+                offsetY: 20
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    legend: {
+                        position: 'bottom',
+                        offsetX: 0,
+                        offsetY: -10
+                    }
+                }
+            }],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 2,
+                    dataLabels: {
+                        total: {
+                            enabled: true,
+                            style: {
+                                fontSize: '13px',
+                                fontWeight: 900
+                            }
+                        }
+                    }
+                },
+            },
+            xaxis: {
+                categories: ['AAP', 'CB', 'CE', 'HA', 'SS'],
+            },
+            legend: {
+                position: 'top',
+                offsetY: 0,
+
+            },
+            fill: {
+                opacity: 1
+            }
+        };
+
+
+        var chart = new ApexCharts(document.querySelector("#apexchart"), options);
+        var chart2 = new ApexCharts(document.querySelector("#apexchart2"), options2);
+        var chart3 = new ApexCharts(document.querySelector("#apexchart3"), options2);
+        var chart4 = new ApexCharts(document.querySelector("#apexchart4"), options2);
+        var chart5 = new ApexCharts(document.querySelector("#chart5"), options5);
+        var chart6 = new ApexCharts(document.querySelector("#apexchart6"), options6);
+
+     
+ 
+        chart.render();
+        chart2.render();
+        chart3.render();
+        chart4.render();
+               chart5.render();
+               chart6.render();
+
+    </script>
+}

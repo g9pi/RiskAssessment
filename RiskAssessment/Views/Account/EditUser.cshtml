@@ -1,0 +1,416 @@
+﻿@model EditUserModel
+@{
+   
+    ViewData["Title"] = "Edit User";
+}
+
+<div id="app">
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col pt-2">
+                <h3 class=" text-white">Edit Accounts</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                <a class="btn btn-outline-warning text-white" asp-action="@AccountController.ActionAccountsList"
+                   asp-controller="@AccountController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>
+
+            </div>
+        </div>
+    </div>
+    
+   
+    <div class="row pt-2">
+        <div class="col-sm-4 pt-1">
+            <div class="card">
+                <div class="card-body align-items-center d-flex justify-content-center">
+                    <div class="image-upload">
+                        <label class="avatar me-3" for="file-input">
+                            <img src="@Url.Action(StorageController.ActionGetImage, StorageController.Name, new { name = Model.User.ImageName })" class="rounded-circle" alt="" srcset="" style="width:200px;height:200px; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                 title="Click to upload image" v-if="UserAccount.imageName != null">
+                            <img src="~/assets/images/avatar/avatar_final.png" class="rounded-circle" alt="" srcset="" style="width:200px;height:200px; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top"
+                                 title="Click to upload image" v-else>
+                        </label>
+                        <input id="file-input" name="file" type="file" style="display: none !important;" accept="image/*" @@change="uploadFile($event)" />
+                    </div>
+                  @*  <img class="avatar user-thumb rounded-circle" src="~/assets/images/avatar/avatar.jpg"
+                         alt="avatar" width="200" height="200">*@
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h5 class="card-title">Action</h5>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12 align-items-center d-flex justify-content-center">
+                            <form>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="UserAccount.isactive" @@change="updateStatus($event)">
+                                    <label class="custom-control-label" for="customSwitch1" v-if="UserAccount.isactive"><span class="badge badge-success" style="font-size:90% !important">Active</span></label>
+                                    <label class="custom-control-label" for="customSwitch1" v-else><span class="badge badge-danger" style="font-size:90% !important">In Active</span></label>
+                                </div>
+                            </form>
+                            
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button class="btn btn-block btn-warning" @@click="resetPassword">Reset Password</button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 pt-1">
+            <div class="card">
+                @*<div class="card-header">
+                   
+                </div>*@
+                
+                <div class="card-body">
+                    <h5 class="card-title">Account Detail</h5>
+                    <hr />
+                    <form id="myForm" v-on:submit.prevent="saveUser">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="emp_username" class="col-form-label">Username</label>
+                                    <input class="form-control" type="text" id="emp_username" v-model="UserAccount.username" readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="emp_no" class="col-form-label">Employee No.</label>
+                                    <input class="form-control" type="text" id="emp_no" v-model="UserAccount.employeeNo">
+                                    <div class="invalid-feedback">
+                                        This Employee No.is already exists.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label for="emp_name" class="col-form-label">Name</label>
+                                    <input class="form-control" type="text" id="emp_name" v-model="UserAccount.name">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="user_sec" class="col-form-label">Division</label>
+                                    @*<input class="form-control" type="text" id="user_sec" v-model="UserAccount.division">*@
+                                    <select class="custom-select" v-model="UserAccount.division">
+                                        @foreach (var item in Model.Division_ddl)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="user_sec" class="col-form-label">Section</label>
+                                    @*<input class="form-control" type="text" id="user_sec" v-model="UserAccount.section">*@
+                                    <select class="custom-select" v-model="UserAccount.section">
+                                        @foreach (var item in Model.Section_ddl)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="emp_email" class="col-form-label">Email Address</label>
+                                    <input class="form-control" type="email" id="emp_email" v-model="UserAccount.email">
+                                    <div class="invalid-feedback" id="invalid_email">
+                                        This Email address is already exists.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="emp_group" class="col-form-label">Group</label>
+                                    <select class="custom-select" v-model="UserAccount.group">
+                                        <option value="" disabled></option>
+                                        @if(Model.User.UserId == 1)
+                                        {
+                                            <option value="Webmaster" >Webmaster</option>
+                                        }
+                                        
+                                        <option value="Administrator" >Administrator</option>
+                                        <option value="Maintain">Maintain</option>
+                                        <option value="Reader">Reader</option>
+                                    </select>
+                                    @*<input class="form-control" type="email" id="emp_group" v-model="UserAccount.Group">*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-success" type="submit">Save Change</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div class="row pt-2">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 >User Permission</h5>
+                    <hr />
+                </div>
+            </div>
+            
+           
+            
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        const model = @Html.Raw(Json.Serialize(Model))
+        const { createApp } = Vue
+        const app =  createApp({
+            data() {
+                return {                    
+                    UserAccount:{
+                        username:"",
+                        employeeNo:"",
+                        name:"",
+                        section:"",
+                        email:"",
+                        group:""
+                    }
+                }
+            },
+             mounted: function () {
+             
+            },
+            methods: {
+                saveUser() {
+                    $.ajax({
+                        url: '@Url.Action(AccountController.ActionIsUnique, AccountController.Name)',
+                        method: 'POST',
+                        data: {
+                            input: app.UserAccount
+                        },
+                        success: function (res) {
+                            var res_data = res
+                            var form_invalid = false
+                            //if (!res_data.username) {
+                            //    $('#emp_username').addClass('is-invalid')
+                            //}
+                            if (!res_data.email && '@Model.User.Email' != app.UserAccount.email) {
+                                $('#emp_email').addClass('is-invalid')
+                                form_invalid = true
+                            }
+                            if (!res_data.empNo && '@Model.User.EmployeeNo' != app.UserAccount.employeeNo) {
+                                $('#emp_no').addClass('is-invalid')
+                                form_invalid = true
+                            }
+                            //if (!res_data.empNo || !res_data.email ) {
+                            //    form_invalid = true
+
+                            //}
+                            if (!form_invalid) {
+
+
+                                $.ajax({
+                                    url: '@Url.Action(AccountController.ActionSaveUser, AccountController.Name)',
+                                    method: 'POST',
+                                    data: {
+                                        User: app.UserAccount
+                                    },
+                                    success: function (res) {
+                                        Swal.fire({
+
+                                            icon: 'success',
+                                            title: 'User accound has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        })
+                                        var delayInMilliseconds = 1500; //1 second
+
+                                        setTimeout(function () {
+                                            window.location.reload()
+                                            //your code to be executed after 1 second
+                                        }, delayInMilliseconds);
+                                    },
+                                    error: function (res) {
+                                        console.error(res)
+                                    }
+                                })
+                            }
+                            //event.preventDefault();
+                        },
+                        error: function (res) {
+                            console.error(res)
+                        }
+                    })
+                },              
+                updateStatus(e) {
+
+                    var value = e.target.checked
+                    var id = this.UserAccount.userId
+                    var username = this.UserAccount.username
+                    var app = this
+                    var status
+                    if (value) {
+                        status = "Active"
+                    } else {
+                        status = "In Active"
+                    }
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        html: 'User : ' + username + ' will be <label class="text-danger fw-bold">"' + status + '"</label>.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#435ebe',
+                        cancelButtonColor: '#dc3545',
+                        confirmButtonText: 'Yes, ' + status + ' this'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            $.ajax({
+                                async: true,
+                                url: '@Url.Action(AccountController.ActionUpdateStatus,AccountController.Name)',
+                                type: 'POST',
+                                data: {
+                                    userId: id,
+                                    status: value
+                                },
+                                dataType: 'json',
+                                success: function (response) {
+                                    
+                                    if(response.code == 200){
+                                        Swal.fire({
+                                            icon: 'success',
+                                            html: '<label class="fs-4">Username : "' + username +'" has been <label class="text-danger fw-bold">"'+ status +'"</label></label>',
+                                            showConfirmButton: false,
+                                            timer: 1800
+                                        })
+                                    }else{
+                                        Swal.fire({
+                                            icon: 'error',
+                                            text: response.message,
+                                            showConfirmButton: false,
+                                            timer: 1800
+                                        })
+                                        app.UserAccount.isactive = !app.UserAccount.isactive
+                                        $(e.target).prop("checked", !value);
+                                    }
+                                },
+                                error: function (err) {
+                                    console.error(err);
+                                }
+                            });
+
+                        } else {
+                            app.UserAccount.isactive = !app.UserAccount.isactive
+                            $(e.target).prop("checked", !value);
+                        }
+                    })
+                },
+                resetPassword() {
+                    var account = this.UserAccount
+                    //console.log(account)
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        html: 'Reset Password of username : <label class="text-danger">' + account.username + '</label> to "' + account.employeeNo + '"',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#435ebe',
+                        cancelButtonColor: '#dc3545',
+                        confirmButtonText: 'Yes, reset password!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                async: true,
+                                url: '@Url.Action(AccountController.ActionForceChangePassword,AccountController.Name)',
+                                type: 'POST',
+                                data: { userId: account.userId },
+                                dataType: 'json',
+                                success: function (response) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Password has been reset to "' + account.username + '"',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                },
+                                error: function (err) {
+                                    console.error(err);
+                                }
+                            });
+                        }
+                    })
+
+                },
+                uploadFile(e) {
+                    var app = this
+                    var model = {
+                        
+                        userId: this.UserAccount.userId,
+                        file: e.target.files[0]
+                    }
+                    var form_data = new FormData();
+                    for (var key in model) {
+                        form_data.append(key, model[key]);
+                    }
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        url: '@Url.Action(StorageController.ActionSaveImageProfile,StorageController.Name)',
+                        dataType: "json",
+                        contentType: "multipart/form-data",
+                        data: form_data,
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                        success: function (response) {
+                            window.location.reload()
+                        },
+                        error: function (err) {
+                            console.error(err);
+                        }
+                    });
+                },
+            },
+            watch:{
+                
+            }
+           
+        }).mount('#app');
+        $(function () {
+            // Set values to v-model UserAccount
+            app.UserAccount = model.user
+            console.log(app.UserAccount)
+          
+            
+            $(".form-control").on("keyup keypress blur change", function () {
+                $(this).removeClass('is-invalid')
+
+            });
+        });
+        $(document).ready(function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+        
+        
+    </script>
+}

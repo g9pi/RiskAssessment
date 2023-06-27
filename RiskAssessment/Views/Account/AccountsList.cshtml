@@ -1,0 +1,459 @@
+﻿@model AccountListModel
+@{
+    ViewData["Title"] = "Account List";
+}
+<div  id="app">
+    <div class="pt-3">
+        <h3 class="pt-5 text-white">Accounts</h3>
+    </div>
+    
+    <div class="row pt-2">
+        <div class="col-12">
+            
+            <div class="card">
+                <div class="card-body">
+                    <form id="myform">
+                        <input type="hidden" asp-for="Page" value="1" />
+                        <input type="hidden" asp-for="PageSize" value="10" />
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label asp-for="Keyword" class="col-form-label">Keyword</label>
+                                    <input class="form-control " type="text" asp-for="Keyword">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label asp-for="Group" class="col-form-label">Group</label>
+                                    <select class="custom-select" asp-for="Group">
+                                        <option value="">- Select All -</option>
+                                        <option value="Administrator">Administrator</option>
+                                        <option value="Maintain">Maintain</option>
+                                        <option value="Reader">Reader</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label asp-for="Division" class="col-form-label">Division</label>
+                                    <select class="custom-select" asp-for="Division">
+                                        <option value="">- Select All -</option>
+                                        @foreach (var item in Model.Division_ddl)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Section</label>
+                                    <select class="custom-select" asp-for="Section">
+                                        <option value="">- Select All -</option>
+                                        @foreach (var item in Model.Section_ddl)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-form-label">Status</label>
+                                    <select class="custom-select" asp-for="Isactive">
+                                        <option value="">- Select All -</option>
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-auto pr-0">
+                                <button type="reset" class="btn btn-warning" id="searchclear">Clear</button>
+                            </div>
+                            <div class="col-auto">
+                                
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="btn btn-primary btn-flat btn-lg mt-3" data-toggle="modal" data-target="#exampleModalCenter" id="create_btn">
+                        <i class="fa fa-plus-circle"></i> User Account
+                    </button>
+                    @*<a class="btn btn-success" href="@Url.Action(AccountController.ActionCreateUser,AccountController.Name)"><i class="fa fa-plus-circle"></i> User Account</a>*@
+                </div>
+                <div class="card-body">
+                    <partial name="Pagination" model="Model.ToPaginationModel()"/>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    <th>Division</th>
+                                    <th class="text-center">Section</th>
+                                    <th class="text-center">Group</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Users != null && Model.Users.Count > 0)
+                                {
+                                    @foreach (var item in Model.Users)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if(item.ImageName != null)
+                                                {
+                                                    <img class="avatar user-thumb rounded-circle" src="@Url.Action(StorageController.ActionGetImage, StorageController.Name, new { name = item.ImageName })"
+                                                         alt="avatar" width="35" height="35">
+                                                }
+                                                else
+                                                {
+                                                    <img class="avatar user-thumb rounded-circle" src="~/assets/images/avatar/avatar.jpg"
+                                                         alt="avatar" width="35" height="35">
+                                                }                                                               
+                                            </td>
+                                            <td>@item.Username</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Division</td>
+                                            <td align="center">@item.Section</td>
+                                            <td align="center">@item.Group</td>
+                                            <td align="center">
+                                                @if (item.Isactive)
+                                                {
+                                                    <span class="badge badge-pill badge-success">Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-pill badge-danger">InActive</span>
+                                                }
+
+
+                                            </td>
+                                            <td align="center"><a class="btn btn-xs btn-warning" href="@Url.Action(AccountController.ActionEditUser,AccountController.Name,new{Id = item.UserId})"><i class="fa fa-pencil"></i></a></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center">No data available in table</td>
+                                    </tr>
+                                    
+                                }
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New User Account</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <form id="myForm" v-on:submit.prevent="saveUser">
+                    <div class="modal-body">
+                        <h5 class="pb-2">Search for MIL Employee</h5>
+                        <div class="form-group">
+                            <label>Name or Section Code</label>
+                            <select class="form-control  select2bs4" style="width: 100%;" id="mySelect2" required>
+                            </select>
+                            <div class="invalid-feedback">
+                                This Employee already has User account.
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="emp_no" class="col-form-label">Employee No.</label>
+                                    <input class="form-control" type="text" id="emp_no" v-model="UserAccount.EmployeeNo" readonly>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label for="emp_name" class="col-form-label">Name</label>
+                                    <input class="form-control" type="text" id="emp_name" v-model="UserAccount.Name" readonly>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="user_div" class="col-form-label">Division</label>
+                                    <input class="form-control" type="text" id="user_div" v-model="UserAccount.Division" readonly>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="user_sec" class="col-form-label">Section</label>
+                                    <input class="form-control" type="text" id="user_sec" v-model="UserAccount.Section" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="emp_username" class="col-form-label">Username</label><label class="text-danger">*</label>
+                                    <input class="form-control" type="text" id="emp_username" v-model="UserAccount.Username" required>
+                                    <div class="invalid-feedback" id="invalid_username">
+                                        This username is already exists.
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-12">
+                                <div class="alert alert-info" role="alert">
+                                    <strong>Notice!</strong> Default password is as same as <span class="badge badge-primary" style="font-size:90% !important">Employee No.</span> <small class="text-danger">*For first time Log In </small>
+                                </div>
+                                
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="emp_email" class="col-form-label">Email Address</label><label class="text-danger">*</label>
+                                    <input class="form-control" type="email" id="emp_email" v-model="UserAccount.Email" required>
+                                    <div class="invalid-feedback" id="invalid_email">
+                                        This Email address is already exists.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="emp_group" class="col-form-label">User Group</label><label class="text-danger">*</label>
+                                    <select class="custom-select" v-model="UserAccount.Group" required>
+                                        <option value=""></option>
+                                        <option value="Administrator">Administrator</option>
+                                        <option value="Maintain">Maintain</option>
+                                        <option value="Reader">Reader</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please provide a User Group.
+                                    </div>
+                                    @*<input class="form-control" type="email" id="emp_group" v-model="UserAccount.Group">*@
+                                </div>
+                            </div>
+                        </div>
+                        
+                       
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save Change</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    
+</div>
+@section Scripts{
+    <script>
+        const { createApp } = Vue
+        const app = createApp({
+            data() {
+                return {
+                    
+                    UserAccount: {
+                        Username: '',
+                        EmployeeNo: '',
+                        Name: '',
+                        Division:'',
+                        Section: '',
+                        Email: '',
+                        Group: ''
+                    }
+                }
+            },
+            mounted() {
+
+            },
+            methods: {
+                saveUser(){
+                    $.ajax({
+                        url: '@Url.Action(AccountController.ActionIsUnique, AccountController.Name)',
+                        method: 'POST',
+                        data: {
+                            input: app.UserAccount
+                        },
+                        success: function (res) {
+                            var res_data = res
+                            var form_invalid = false
+                            if (!res_data.username) {
+                                $('#emp_username').addClass('is-invalid')
+                            }
+                            if (!res_data.email) {
+                                $('#emp_email').addClass('is-invalid')
+                            }
+                            if (!res_data.empNo) {
+                                $('#mySelect2').addClass('is-invalid')
+                            }
+                            if (!res_data.empNo || !res_data.email || !res_data.username) {
+                                form_invalid = true
+                                
+                            }
+                            if (!form_invalid){
+                                
+
+                                $.ajax({
+                                    url: '@Url.Action(AccountController.ActionSaveUser, AccountController.Name)',
+                                    method: 'POST',
+                                    data: {
+                                        User: app.UserAccount
+                                    },
+                                    success: function (res) {
+                                        Swal.fire({
+                                            
+                                            icon: 'success',
+                                            title: 'User accound has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        })
+                                        var delayInMilliseconds = 1500; //1 second
+
+                                        setTimeout(function () {
+                                            window.location.reload()
+                                            //your code to be executed after 1 second
+                                        }, delayInMilliseconds);
+                                    },
+                                    error: function (res) {
+                                        console.error(res)
+                                    }
+                                })
+                            }
+                            //event.preventDefault();
+                        },
+                        error: function (res) {
+                            console.error(res)
+                        }
+                    })
+                },
+                getEmployee(emp_no) {
+                    var emp_no = emp_no
+                    if(emp_no != null){
+                        $.ajax({
+                            url: '@Url.Action(AccountController.ActionGetEmployeeByEmpNo, AccountController.Name)',
+                            method: 'GET',
+                            data: {
+                                emp_no: emp_no
+                            },
+                            success: function (res) {
+                                var result = res.data
+                                //console.log(result)
+                                app.UserAccount.EmployeeNo = result.employeeNo
+                                app.UserAccount.Name = result.employeeName
+                                app.UserAccount.Section = result.sectionNo
+                                app.UserAccount.Division = result.division
+                            },
+                            error: function (res) {
+                                console.error(res)
+                            }
+                        })
+                    }
+                    
+                }
+            }
+        }).mount('#app');
+
+        function gopage(page) {
+            $('#Page').val(page);
+            $('#myform').submit();
+        }
+      
+        $(function () {
+            $('#create_btn').on("click", function () {
+                $('#myForm').removeClass('was-validated')
+                $('#mySelect2').val(null).trigger('change');
+                app.UserAccount = {
+                    Username: '',
+                    EmployeeNo: '',
+                    Name: '',
+                    Section: '',
+                    Email: '',
+                    Group: ''
+                }
+            });
+
+            $('#pagesize').on('change', function (value) {
+                    //alert(this.value);
+                    $('#Page').val(1);
+                    $('#PageSize').val(this.value);
+                    //console.log($('#PageSize').val())
+                    $('#myform').submit();
+                }
+            );
+            $(".form-control").on("keyup keypress blur change", function () {
+                $(this).removeClass('is-invalid')
+            
+            });
+
+            $("#searchclear").click(function () {
+                $("#Section").select2('val', 'All');
+            });
+
+            $('#Section').select2({
+                //allowClear: true,
+                theme: 'bootstrap4',
+                selectOnClose: false,
+                placeholder: "- Select All -"
+            }).on('change', function () {
+                $('#value')
+                    .removeClass('select2-offscreen')
+                    .select2({
+                        data: [$(this).val()],
+                        allowClear: true,
+                        placeholder: "Select a value"
+                    });
+            }).trigger('change');
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4',
+                minimumInputLength: 2,
+                ajax: {
+                    url: '@Url.Action(AccountController.ActionGetEmployeeDDL, AccountController.Name)',
+                    data: function (params) {
+                        return {
+                            q: params.term// search term
+                        };
+                    },
+                    processResults: function (data) {
+
+                        return {
+                            results: data.items
+                        }
+                    },
+                }
+
+            })
+            var $eventSelect = $("#mySelect2");
+            $eventSelect.on("change", function (e) {
+                var data = $("#mySelect2 option:selected").val();
+                app.getEmployee(data)
+                //alert(data)
+            });
+        });
+    </script>
+}

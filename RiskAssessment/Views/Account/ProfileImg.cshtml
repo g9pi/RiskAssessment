@@ -1,0 +1,11 @@
+﻿
+@if (@ViewBag.filename != null)
+{
+    <img class="avatar user-thumb" src="@Url.Action(StorageController.ActionGetImage, StorageController.Name, new { name = ViewBag.filename })">
+}
+else
+{
+    <img class="avatar user-thumb" src="~/assets/images/author/avatar.png"
+         alt="avatar">
+   
+}

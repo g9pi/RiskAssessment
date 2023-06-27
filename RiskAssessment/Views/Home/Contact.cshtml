@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    ViewData["Title"] = "Contact";
+    var P7EV = Configuration.GetSection("Contact:P7EV");
+    var G9PI = Configuration.GetSection("Contact:G9PI");
+}
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- login area start -->
+<div class="login-area login-bg">
+    <div class="container">
+        <div class="login-box ptb--100">
+            <form>
+                <div class="login-form-head pb-3">
+                    <h4 style="font-family:'Nunito'">Risk Analysis and Assessment</h4>
+                    <h5>Contact</h5>
+                </div>
+                <div class="login-form-body p-3">
+                    <div class="card">
+                        <div id="accordion6" class="according gradiant-bg">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="card-link" data-toggle="collapse" href="#accordion61">
+                                        P7EV
+                                    </a>
+                                </div>
+                                <div id="accordion61" class="collapse show" data-parent="#accordion6">
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (IConfigurationSection section in P7EV.GetChildren())
+                                            {
+                                                <li class="list-group-item">
+
+                                                    <p><i class="fa fa-user"></i>   &nbsp;&nbsp;&nbsp; @(section.GetValue<string>("Name"))</p>
+                                                    <p><i class="fa fa-envelope"></i>  &nbsp;&nbsp;&nbsp; <a href="mailto:@(section.GetValue<string>("Email"))">@(section.GetValue<string>("Email"))</a></p>
+                                                    <p><i class="fa fa-phone"></i>  &nbsp;&nbsp;&nbsp; <a href="tel:@(section.GetValue<string>("Tel"))">@(section.GetValue<string>("Tel")) @(string.IsNullOrEmpty(section.GetValue<string>("Ext")) ? "" : " Ext " + section.GetValue<string>("Ext"))</a></p>
+                                                </li>
+
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#accordion62">
+                                       G9PI Web Developer
+                                    </a>
+                                </div>
+                                <div id="accordion62" class="collapse" data-parent="#accordion6">
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (IConfigurationSection section in G9PI.GetChildren())
+                                            {
+                                                <li class="list-group-item">
+
+                                                    <p><i class="fa fa-user"></i>   &nbsp;&nbsp;&nbsp; @(section.GetValue<string>("Name"))</p>
+                                                    <p><i class="fa fa-envelope"></i>  &nbsp;&nbsp;&nbsp; <a href="mailto:@(section.GetValue<string>("Email"))">@(section.GetValue<string>("Email"))</a></p>
+                                                    <p><i class="fa fa-phone"></i>  &nbsp;&nbsp;&nbsp; <a href="tel:@(section.GetValue<string>("Tel"))">@(section.GetValue<string>("Tel")) @(string.IsNullOrEmpty(section.GetValue<string>("Ext")) ? "" : " Ext " + section.GetValue<string>("Ext"))</a></p>
+                                                 </li>
+                                                
+                                            }
+                                           
+                                            
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-btn-area mt-5">
+                                <button id="form_submit" type="button">Back to Log In.<i class="ti-arrow-left"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+           
+               
+               
+               
+           
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $("#form_submit").click(function () {
+            document.location.href = '@Url.Action(AuthenticationController.ActionLogin,AuthenticationController.Name)';
+        });
+    </script>
+}
