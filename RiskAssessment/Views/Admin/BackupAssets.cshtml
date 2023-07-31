@@ -1,0 +1,107 @@
+﻿
+@{
+    //Layout = "_LoginLayout";
+    ViewBag.Title = "Back Up & Restore";
+
+}
+@model List<BackupModel>
+<div id="app">
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col ">
+                <h3 class=" text-white">@ViewData["Title"]</h3>
+            </div>
+            
+
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title"></h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Path</th>
+                                        <th width="10%">Size</th>
+                                        <th width="12%">BackUp</th>
+                                        <th width="33%">Restore</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var backup in Model)
+                                    {
+                                       <tr>
+                                           <td>@backup.Name</td>
+                                           <td>@backup.Path</td>
+                                           <td>@backup.SizeString()</td>
+                                           <td>
+                                                <a class="btn btn-success text-white" asp-action="@AdminController.ActionDownloadAssets" asp-controller="@AdminController.Name" asp-route-rootpath="@backup.Path">
+                                                   <i class="fa-solid fa-download fa-bounce"></i> 
+                                                   Back Up
+                                               </a></td>
+                                            <td>
+                                                <form method="post" class="ui form" onsubmit="return submitForm(this)">
+                                                    <input style="display:none" name="RootPath" id="RootPath" value="@backup.Path">
+                                                    <div class="input-group mb-3">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" name="file" id="FileInput">
+                                                            <label class="custom-file-label" for="FileInput" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                                        </div>
+                                                        <div class="input-group-append">
+                                                            <button type="submit" class="btn btn-primary text-white"><i class="fa-solid fa-upload fa-bounce"></i> Restore</button>
+                                                        </div>
+                                                    </div>
+                                              </form>
+                                              
+                                          </td>
+                                       </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        });
+        let submitForm = (element) => {
+            let data = new FormData(element);
+            //$('button[type=submit]').addClass('loading');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action(AdminController.ActionBackupAssets, AdminController.Name)',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res.code == 200) {
+                        //say(res, () => {
+                        //    location.reload();
+                        //})
+                        location.reload();
+                    }
+                    else {
+                        //say(res);
+                    }
+                },
+                error: function (error) {
+                    //sayError();
+                },
+            });
+            return false;
+        };      
+    </script>
+}

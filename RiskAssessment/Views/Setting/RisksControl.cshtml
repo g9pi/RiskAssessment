@@ -1,0 +1,262 @@
+﻿@{
+    ViewData["Title"] = "Risk and Opportunity Control";
+}
+
+<div id="app">
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col ">
+                <h3 class=" text-white"><i class="fa-solid fa-gears"></i> @ViewData["Title"]</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                <a class="btn btn-outline-warning text-white" asp-action="@SettingController.ActionProcessRiskFlow"
+                   asp-controller="@SettingController.Name"><i class="fa fa-arrow-circle-left"></i> Back</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="row mt-3">
+            <div class="col-3">
+                <div class="card">
+                    <div class="seo-fact sbg1">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"><i class="fa-solid fa-building"></i> Division</div>
+                            <h2>CE</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="seo-fact sbg2">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"> <i class="fa-solid fa-sitemap"></i> Section</div>
+                            <h2>12AB</h2>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="seo-fact sbg3">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"> <i class="fa-solid fa-diagram-project"></i>Flow</div>
+                            <h2>Assembly</h2>
+                            @* <i class="ti-panel"></i>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="seo-fact sbg4">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"><i class="ti-panel"></i>Process</div>
+                            <h2>Trimming</h2>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <div class="row mt-3">
+           <div class="col-12">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="header-title">Risk & Opportunity Assessment</h5>
+                            </div>
+                            <div class="col-auto ml-auto">
+                                <a class="btn btn-flat btn-primary" href="@Url.Action(SettingController.ActionProcessRiskCreate,SettingController.Name)"><i class="fa-solid fa-circle-plus"></i> New Risk & Opportunity Assessment</a>
+                            </div>
+                        </div>
+                       
+                        <hr />
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr style="height:50px !important">
+
+                                        <th rowspan="2" class="align-middle text-center pl-1 pr-1">
+                                            รายการ<br />
+                                            Items
+                                        </th>
+                                        <th rowspan="2" class="align-middle text-center">
+                                            ประเด็นความเสี่ยง หรือโอกาส<br />
+                                            Risk or Opportunity
+                                        </th>
+                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important">
+                                            Risk/Opportunity
+                                        </th>
+                                        <th rowspan="2" class="align-middle text-center">ผลกระทบ <br /> Impact </th>
+                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important">D (ทางตรง) & I (ทางอ้อม)</th>
+                                        <th colspan="2" class="text-center">ผู้รับผลกระทบ</th>
+                                        <th colspan="3" class="text-center">การประเมิน</th>
+                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                            Level (H/M/L)
+                                            <svg width="20" height="20">
+                                                <rect width="20" height="20" style="fill:#FF99CC;stroke-width:3;stroke:rgb(0,0,0)" />
+                                            </svg>
+                                        </th>
+                                        <th rowspan="2" class="align-middle text-center">ดำเนินการ?</th>
+                                        <th rowspan="2" class="align-middle text-center">หมายเหตุ <br />Remark</th>
+
+                                    </tr>
+                                    <tr style="height:50px !important">
+                                        <th class="align-middle text-center">ภายใน <br /> Internal</th>
+                                        <th class="align-middle text-center">ภายนอก <br /> External</th>
+                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                            Impact (I)
+                                            <svg width="20" height="20">
+                                                <rect width="20" height="20" style="fill:#FFFF00;stroke-width:3;stroke:rgb(0,0,0)" />
+                                            </svg>
+                                        </th>
+                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                            Likelihood (L)
+                                            <svg width="20" height="20">
+                                                <rect width="20" height="20" style="fill:#00FF00;stroke-width:3;stroke:rgb(0,0,0)" />
+                                            </svg>
+
+                                        </th>
+                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">RPN (IxL)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(SettingController.ActionProcessRiskEdit,SettingController.Name)'">
+
+                                        <td class="pl-1 pr-1 text-center">M</td>
+                                        <td>กลึงก้นชิ้นงานไม่ตรงตาม Spec / ทำให้ชิ้นงานป็นรอย / เกิดของเสีย</td>
+                                        <td class="text-center">R</td>
+                                        <td>KPI Scrap</td>
+                                        <td class="text-center">D</td>
+                                        <td>12AB/CE</td>
+                                        <td></td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-center">4</td>
+                                        <td class="text-center">12</td>
+                                        <td class="text-center">M</td>
+                                        <td class="text-center">Yes</td>
+                                        <td>อ้างอิงการแก้ไขจาก CPAR CE0583</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="pl-1 pr-1 text-center">I</td>
+                                        <td>ไม่มี OT/ชั่วโมงการทำงานน้อยลง/ผลิตงานไม่ทันกำหนด</td>
+                                        <td class="text-center">R</td>
+                                        <td>
+                                            KPI Ontime
+                                        </td>
+                                        <td class="text-center">D</td>
+                                        <td>12AB/CE</td>
+                                        <td></td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-center">4</td>
+                                        <td class="text-center">12</td>
+                                        <td class="text-center">M</td>
+                                        <td class="text-center">No</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="pl-1 pr-1 text-center">C</td>
+                                        <td>ไม่มีพื้นที่ / กลึงงานไม่ได้</td>
+                                        <td class="text-center">R</td>
+                                        <td>
+                                            KPI Ontime
+                                        </td>
+                                        <td class="text-center">D</td>
+                                        <td>12AB/CE</td>
+                                        <td></td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-center">4</td>
+                                        <td class="text-center">12</td>
+                                        <td class="text-center">M</td>
+                                        <td class="text-center"><a href="#">Yes</a></td>
+                                        <td>ได้มีการแก้ไขปรับปรุงแก้ไขตาม Improvement Plan แล้ว</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="header-title">Improvement Plan</h5>
+                            </div>
+                            <div class="col-auto ml-auto">
+                                <a class="btn btn-flat btn-primary" href="@Url.Action(ImprovementPlanController.ActionPlanEdit,ImprovementPlanController.Name)"><i class="fa-solid fa-circle-plus"></i> New Improvement Plan</a>
+                            </div>
+                        </div>
+                        
+                        <hr />
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No.</th>
+
+                                        <th class="text-center" width="35%">Risk or Opportunity<br />ความเสี่ยงหรือโอกาส</th>
+                                        <th class="text-center" width="40%">Actions items<br />รายละเอียดการดำเนินการ</th>
+                                        <th class="text-center">Resource<br />ทรัพยากร</th>
+                                        <th class="text-center">Action by<br />ผู้ดำเนินการ</th>
+                                        <th class="text-center">Start Date<br />วันที่เริ่ม</th>
+                                        <th class="text-center">Finish Date<br />วันที่เสร็จ</th>
+                                        <th class="text-center">Status of Actions<br />สถานะการดำเนินการ</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(ImprovementPlanController.ActionPlanEdit,ImprovementPlanController.Name)'">
+                                        <td class="text-center">1</td>
+
+                                        <td>ขอบบริเวณ step cut ของ  stainless คมเนื่องจากชิ้นงานไม่ได้ center ทำให้ขอบ S/S คมและเป็นเสี้ยนทำให้เกิดของเสีย / คำร้องเรียนของลูกค้า</td>
+                                        <td>
+                                            <textarea class="form-control-plaintext" readonly rows="5" style="background-color:#ffffff00 !important;cursor:pointer;">
+1). Determined check and record the base plate level is sharp at trimming section.
+2). Prepare the limit sample.
+3). Add quality care point base level that it is sharp at trimming and assembly section for stainless base products.
+4). Arrange the training course check and record the base plate level is sharp, and comparing limits sample for trimming and assembly section.
+5). Issue ECR for reducing the size of the circle's stainless which increase tolerance of aluminium at base from 2.5 mm to 5 mm.
+                                                            </textarea>
+
+                                        </td>
+                                        <td>Trimming Machine</td>
+                                        <td style="white-space:nowrap">Pittaya</td>
+                                        <td style="white-space:nowrap">2020-09-01</td>
+                                        <td style="white-space:nowrap">2021-03-31</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                    </tr>
+                                    <tr style="cursor:pointer;" onclick="window.open('@Url.Action(ImprovementPlanController.ActionPlanDetail,ImprovementPlanController.Name)','_blank')">
+                                        <td class="text-center">2</td>
+
+                                        <td>ไม่มีพื้นที่ / ทำงานไม่ได้ </td>
+                                        <td>
+                                            <textarea class="form-control-plaintext" readonly rows="5" style="background-color:#ffffff00 !important;cursor:pointer;">
+CE แก้ปัญหาโดยการนำ Finished goods และ Raw material บางส่วนไปฝากไว้ที่ External WH
+                                                            </textarea>
+                                        </td>
+                                        <td></td>
+                                        <td style="white-space:nowrap">Boonhome R.</td>
+                                        <td style="white-space:nowrap">2021-08-25</td>
+                                        <td style="white-space:nowrap">2022-01-31</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+    </div>
+</div>
+

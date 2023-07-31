@@ -1,11 +1,12 @@
-﻿
+﻿@using static RiskAssessment.Models.Common;
+
 <div class="fixed-top">
     <div class="header-area header-bottom  ">
         <div class="container-fluid">
             <div class="row align-items-center">
                  <div class="col-md-1">
                     <div class="logo">
-                        <a href="index.html"><img src="~/assets/images/icon/logo2.png" alt="logo"></a>
+                        <a href="index.html"><img src="~/assets/images/icon/MYLOGO.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-7 mr-auto  d-none d-lg-block">
@@ -18,7 +19,7 @@
                                     </a>
                                     
                                 </li>
-                                <li class="mega-menu">
+                                <li class="mega-menu @Url.MakeActiveClassCTL(OrganizationRiskController.Name) @Url.MakeActiveClassCTL(ProcessRiskController.Name)  @Url.MakeActiveClassCTL(ProductRiskController.Name)">
                                     <a href="javascript:void(0)">
                                         <i class="fa fa-flag"></i><span>
                                             Risk Assessment (ISO 9001)
@@ -28,11 +29,11 @@
                                         
                                         <li><a asp-action="@OrganizationRiskController.ActionIndex" asp-controller="@OrganizationRiskController.Name">1. Organization Risk and Opportunity</a></li>
                                         <li><a href="#">2. Risk and Opportunity from needs and expectations of interested parties</a></li>
-                                        <li><a asp-action="@ProcessRiskController.ActionProcessRisk" asp-controller="@ProcessRiskController.Name">3. Process Risk and Opportunity</a></li>
+                                        <li class="@Url.MakeActiveClass(ProcessRiskController.Name,ProcessRiskController.ActionProcessRisk)"><a asp-action="@ProcessRiskController.ActionProcessRisk" asp-controller="@ProcessRiskController.Name">3. Process Risk and Opportunity</a></li>
                                         <li><a asp-action="@ProductRiskController.ActionProductRiskList" asp-controller="@ProductRiskController.Name">4. Product Risk</a></li>
                                     </ul>
                                 </li>
-                                <li>
+                               @* <li>
                                     <a href="javascript:void(0)">
                                         <i class="fa fa-exclamation-triangle"></i><span>Hazard Identifications (ISO 45001)</span>
                                     </a>
@@ -40,15 +41,19 @@
                                         <li><a href="#">Hazard Identifications </a></li>
                                         
                                     </ul>
-                                </li>
+                                </li>*@
 
-                                <li class="@Url.MakeActiveClassCTL("Account")">
+                                <li class="@Url.MakeActiveClassCTL(AccountController.Name) @Url.MakeActiveClassCTL(SettingController.Name)">
                                     <a href="javascript:void(0)">
                                         <i class="ti-settings"></i>
                                         <span>Settings</span>
                                     </a>
                                     <ul class="submenu">
-                                        <li class="@Url.MakeActiveClass("Account","AccountsList")"><a href="@Url.Action(AccountController.ActionAccountsList,AccountController.Name)">Account Setting</a></li>
+                                        <li class="@Url.MakeActiveClass(SettingController.Name,SettingController.ActionProcessRiskControl)"><a href="@Url.Action(SettingController.ActionProcessRiskControl,SettingController.Name)">process Risk Control</a></li>
+                                        <li><a href="javascript:void(0)">product Risk Control</a></li>
+                                        <li class="@Url.MakeActiveClass(AccountController.Name,AccountController.ActionAccountsList)"><a href="@Url.Action(AccountController.ActionAccountsList,AccountController.Name)">Account Setting</a></li>
+                                        <li class="@Url.MakeActiveClass(SettingController.Name,SettingController.ActionDivisionsAndResponse)"><a href="@Url.Action(SettingController.ActionDivisionsAndResponse,SettingController.Name)">Division & Reviewer Setting</a></li>
+                                        
                                         @*<li><a href="login2.html">Dropdown Value Control</a></li>*@
                                         
                                 
@@ -61,8 +66,19 @@
                     </div>
                 </div>
                 <div class="col-auto text-right">
-
+                    
                     <ul class="notification-area pull-right">
+                         <li>
+                            <button class="btn  dropdown-toggle" type="button" data-toggle="dropdown">
+                                <img src="~/assets/images/icon/EN.png" width="24" />
+                            </button>
+                            <div class="dropdown-menu ">
+                                <a class="dropdown-item" href="#"><img class="pb-1"  src="~/assets/images/icon/TH.png" width="24" /> <label class="ml-3 pt-1 mb-0">ไทย</label></a>
+                                <a class="dropdown-item" href="#"><img class="pb-1" src="~/assets/images/icon/EN.png" width="24" /> <label class="ml-3 pt-1 mb-0">English</label></a>
+                                
+                            </div>
+                         </li>
+                       
                     <li class="dropdown">
                         <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
                             <span>2</span>
@@ -71,54 +87,26 @@
                             <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
                             <div class="nofity-list">
                                 <a href="#" class="notify-item">
-                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                    <div class="notify-thumb"><i class="ti-info btn-danger"></i></div>
                                     <div class="notify-text">
-                                        <p>You have Changed Your Password</p>
+                                        <p>You have "G9PI" Process Risk New Revision for review</p>
                                         <span>Just Now</span>
                                     </div>
                                 </a>
                                 <a href="#" class="notify-item">
                                     <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
                                     <div class="notify-text">
-                                        <p>New Commetns On Post</p>
+                                        <p>Tanapat Tansara add you as follow-up on implrovement plan "ABC"</p>
                                         <span>30 Seconds ago</span>
                                     </div>
                                 </a>
                                 <a href="#" class="notify-item">
-                                    <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
+                                        <div class="notify-thumb"><i class="ti-info btn-primary"></i></div>
                                     <div class="notify-text">
-                                        <p>Some special like you</p>
-                                        <span>Just Now</span>
+                                            <p>You have "P7EV" Process Risk New Revision for review</p>
+                                            <span>1 Hours ago</span>
                                     </div>
-                                </a>
-                                <a href="#" class="notify-item">
-                                    <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
-                                    <div class="notify-text">
-                                        <p>New Commetns On Post</p>
-                                        <span>30 Seconds ago</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="notify-item">
-                                    <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
-                                    <div class="notify-text">
-                                        <p>Some special like you</p>
-                                        <span>Just Now</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="notify-item">
-                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                    <div class="notify-text">
-                                        <p>You have Changed Your Password</p>
-                                        <span>Just Now</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="notify-item">
-                                    <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
-                                    <div class="notify-text">
-                                        <p>You have Changed Your Password</p>
-                                        <span>Just Now</span>
-                                    </div>
-                                </a>
+                                </a>   
                             </div>
                         </div>
                     </li>
@@ -138,7 +126,14 @@
                             </h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-action="@AccountController.ActionProfile" asp-controller="@AccountController.Name">Profile</a>
+                                @if (Context.User.FindFirstValue(AccountClaim.UserGroup) == UserGroup.Webmaster)
+                                {
+                                    <a class="dropdown-item" asp-action="@AdminController.ActionBackupAssets" asp-controller="@AdminController.Name">BackUp & Restore</a>
+                                }
+                       
+                             
                                 <a class="dropdown-item" asp-action="@AuthenticationController.ActionLogout" asp-controller="@AuthenticationController.Name">Sign Out</a>
+                               
                                 @*<a class="dropdown-item" href="#">Log Out</a>*@
                             </div>
                         </div>

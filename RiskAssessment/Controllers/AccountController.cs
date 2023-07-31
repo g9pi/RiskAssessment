@@ -162,6 +162,7 @@ namespace RiskAssessment.Controllers
                 return Json(new { code = 500, message = ex.Message, detail = ex.ToString() });
             }           
         }
+
         [HttpPost]
         public JsonResult isUniqueInput(UserModel input)
         {
@@ -237,12 +238,13 @@ namespace RiskAssessment.Controllers
             {
 
                 UserModel user = _userAccountService.GetUserByLogin(input.Username,input.OldPassword);
-                user.ModifyUser = _accountUsername;
-                user.ModifyIp = _accountIp;
+                
                 if(user == null)
                 {
                     return Json(new { code = 400, message = "Old Password is wrong." });
                 }
+                user.ModifyUser = _accountUsername;
+                user.ModifyIp = _accountIp;
                 _userAccountService.ChangePassword((int)user.UserId, input.NewPassword);
                 return Json(new { code = 200, message = "Password has been changed." });
 

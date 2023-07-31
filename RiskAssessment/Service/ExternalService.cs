@@ -154,7 +154,7 @@ WHERE Employee_STATUS = 'A'";
                 SqlCommand command = new SqlCommand();
                 command.Connection = con;
 
-                string query = "UPDATE RAS_USER_ACCOUNT SET MODDTE = GETDATE(), USEMOD = 'System',ISACTIVE = 0 WHERE EMP_NO IN (";
+                string query = "UPDATE RA_USER_ACCOUNT SET MODDTE = GETDATE(), USEMOD = 'System',ISACTIVE = 0 WHERE EMP_NO IN (";
                 for (int i = 0; i < emp_no.Count(); i++)
                 {
 

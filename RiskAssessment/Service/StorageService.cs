@@ -12,18 +12,39 @@ namespace RiskAssessment.Service
         {
 
         }
-
-
-        public FileStream GetFile(string fileName)
+        public FileStream GetFile(string fileName,string folder)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), RelativePath.File, fileName);
+
+            string path = Path.Combine(Directory.GetCurrentDirectory(), folder, fileName);
             var stream = new FileStream(path, FileMode.Open);
             return stream;
         }
+
+        //public FileStream GetFile(string fileName)
+        //{
+        //    string path = Path.Combine(Directory.GetCurrentDirectory(), RelativePath.File, fileName);
+        //    var stream = new FileStream(path, FileMode.Open);
+        //    return stream;
+        //}
         public string SaveFile(IFormFile file)
         {
             string fileName = "file_" + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(file.FileName);
             string path = Path.Combine(Directory.GetCurrentDirectory(), RelativePath.File);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string savePath = Path.Combine(Directory.GetCurrentDirectory(), path, fileName);
+            using (var stream = new FileStream(savePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+            {
+                file.CopyTo(stream);
+            }
+            return fileName;
+        }
+        public string SaveFile(IFormFile file, string folder)
+        {
+            string fileName = "file_" + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(file.FileName);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), folder);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -42,15 +63,31 @@ namespace RiskAssessment.Service
             File.Delete(path);
         }
 
-        public FileStream GetImage(string fileName)
+     
+        public FileStream GetImage(string fileName, string folder)
         {
-            return GetFile(fileName);
+            return GetFile(fileName,folder);
         }
-
         public string SaveImage(IFormFile file)
         {
             string fileName = "img_" + DateTime.Now.ToString("yyyyMMddHHmmss_ffffff") + Path.GetExtension(file.FileName);
             string path = Path.Combine(Directory.GetCurrentDirectory(), RelativePath.File);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string savePath = Path.Combine(Directory.GetCurrentDirectory(), path, fileName);
+            using (var stream = new FileStream(savePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+            {
+                file.CopyTo(stream);
+            }
+            return fileName;
+        }
+
+        public string SaveImage(IFormFile file,string folder)
+        {
+            string fileName = "img_" + DateTime.Now.ToString("yyyyMMddHHmmss_ffffff") + Path.GetExtension(file.FileName);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), folder);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

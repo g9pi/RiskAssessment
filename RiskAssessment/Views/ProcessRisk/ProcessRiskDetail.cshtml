@@ -1,0 +1,567 @@
+﻿
+@{
+    ViewData["Title"] = "Process Risk and Opportunity Detail";
+}
+
+<div id="app">
+    <div class="pt-3">
+        <div class="row pt-5">
+            <div class="col ">
+                <h3 class=" text-white">@ViewData["Title"]</h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                <a class="btn btn-outline-warning text-white" asp-action="@ProcessRiskController.ActionProcessRisk"
+                   asp-controller="@ProcessRiskController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>
+
+            </div>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="seo-fact sbg1">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"><i class="fa-solid fa-building"></i> Division</div>
+                            <h2>CE</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="seo-fact sbg2">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"> <i class="fa-solid fa-sitemap"></i> Section</div>
+                            <h2>12AB</h2>
+                        </div>
+                       
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="card">
+                    <div class="seo-fact sbg3">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"> <i class="fa-solid fa-diagram-project"></i>Flow</div>
+                            <h2>Assembly</h2>
+                           @* <i class="ti-panel"></i>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card card-bordered">
+                    <div class="card-img-top img-fluid ">
+                        <div class="text-center" style="resize: both;overflow: auto;background-color:darkgray">
+                            <img src="@Url.Action(StorageController.ActionFile, StorageController.Name, new { name = "Sample Flow3.jpg" })" alt="image" style="width:70%">
+                        </div>
+                        @*<div id="sample">
+                            <div style="width: 100%; display: flex; justify-content: space-between">
+
+                          
+                                <div id="myDiagramDiv" style="border: 1px solid black; width: 100%; height: 600px; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);"><canvas tabindex="0" width="1054" height="598" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; touch-action: none; width: 1054px; height: 598px;">This text is displayed if your browser does not support the Canvas HTML element.</canvas><div style="position: absolute; overflow: auto; width: 1054px; height: 598px; z-index: 1;"><div style="position: absolute; width: 1px; height: 1px;"></div></div></div>
+                            </div>
+                        </div>*@
+
+
+
+                    </div>
+
+                    <div class="card-body" style="background-color: cadetblue;">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="title">Process Flow and Interaction.</h5>
+                                <p class="card-text text-white">
+                                    Reference from : MIL-QP-G26-F3  R0  Processes flow and Interaction
+                                </p>
+                            </div>
+                            <div class="col-auto ml-auto text-right ">
+                                <p class="text-white">Created by : <label class="text-warning">Teerawat P.</label> / Created date : <label class="text-warning">2023-03-08</label></p>
+                                <p class="text-white">Lasted modify by : <label class="text-warning">Agsornsak  C.</label>  / Lasted modify date : <label class="text-warning">2023-03-08</label></p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+               
+            </div>
+           
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title">Processes</h5>
+                        <hr />
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                    Trimming
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hole Punching & Cleaning</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Riveting</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-3" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="card card-bordered">
+
+                                    <div class="card-img-top img-fluid pl-3 pr-3">
+                                        <div class="row align-items-end">
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item active"><h5>Machine/Equipment</h5></li>
+                                                    <li class="list-group-item">Bontempi Trimming Machine</li>
+                                                    <li class="list-group-item">Manual Trimming Machine</li>
+                                                    <li class="list-group-item">Dust collector</li>
+                                                    <li class="list-group-item">Mold Trimmimg </li>
+                                                   
+                                                </ul>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h1 class="text-primary">
+                                                            <i class="fa-solid fa-arrow-turn-down fa-2x"></i>
+                                                        </h1>
+
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <h1 class="text-primary">
+                                                            <i class="fa-solid fa-arrow-turn-up  fa-rotate-180  fa-2x"></i>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item active"><h5>Man</h5></li>
+                                                    <li class="list-group-item">หัวหน้างาน</li>
+                                                    <li class="list-group-item">พนักงานตั้งเครื่อง</li>
+                                                    <li class="list-group-item">พนักงานปล่อยงาน และพนักงาน QC</li>
+                                                    <li class="list-group-item">พนักงานกลึง</li>
+                                                    <li class="list-group-item">พนักงานบันทึกข้อมูล</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item active"><h5>Input</h5></li>
+                                                    <li class="list-group-item">ชิ้นงานจาก 12CI/12CX/12PL    Not-Assembly Stock</li>
+                                                    <li class="list-group-item">ไฟฟ้า</li>
+                                                    <li class="list-group-item">ลมอัด</li>
+                                                    <li class="list-group-item">INSERT DIAMOND TOOL EDGE (R2,R2.5,R3)</li>
+                                                    <li class="list-group-item">"D" INSERT DIAMOND TOOL DCMX</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col ">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+
+                                                        <h1 class="text-primary">
+                                                            <i class="fa-solid fa-arrow-right fa-beat fa-xl"></i>
+                                                        </h1>
+                                                    </div>
+                                                    <div class="col text-center p-0">
+                                                        <div class="alert alert-primary p-3" role="alert">
+                                                            <h4>Process</h4>
+                                                            <br />
+                                                            <h5 class="card-subtitle">Trimming</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto ">
+                                                        <h1 class="text-primary">
+                                                            <i class="fa-solid fa-arrow-right fa-beat fa-xl"></i>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item active"><h5>Output</h5></li>
+                                                    <li class="list-group-item">ชิ้นงานดี</li>
+                                                    <li class="list-group-item">ชิ้นงานเสีย (Scrap)</li>
+                                                    <li class="list-group-item">ชิ้นงานที่นำมาแก้ไขใหม่ (Rework)</li>
+                                                    <li class="list-group-item">บันทึกข้อมูลในเอกสารและPDR</li>
+                                                    <li class="list-group-item">Not-Assembly Stock</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row align-items-start">
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item active"><h5>Method</h5></li>
+                                                    <li class="list-group-item">Web Spec (MEYER Management System)</li>
+                                                    <li class="list-group-item">MIL-QI-C10  Trimming Operating</li>
+                                                    <li class="list-group-item">MIL-QI-C01 QA Process Control Instruction</li>
+                                                    <li class="list-group-item">ขั้นตอนการปรับตั้งเครื่องจักร ตามชิ้นงานที่ทำการผลิต</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h1 class="text-primary">
+                                                            <i class="fa-solid fa-arrow-turn-up fa-2x"></i>
+                                                        </h1>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <h1 class="text-primary">
+                                                            <i class="fa-solid fa-arrow-turn-down  fa-rotate-180  fa-2x"></i>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item active"><h5>Control/Measurement</h5></li>
+                                                    <li class="list-group-item">KPI Scrap</li>
+                                                    <li class="list-group-item">KPI Ontime</li>
+                                                    <li class="list-group-item">KPI Productivity</li>
+                                                    <li class="list-group-item">KPI Rework</li>
+                                                    <li class="list-group-item">ขนาดและคุณภาพถูกต้องตามมาตรฐาน</li>
+                                                    <li class="list-group-item">ปรับตั้ง Parameter ให้ได้ตามมาตรฐาน</li>
+                                                    <li class="list-group-item">WIPs and stock management</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="background-color: cadetblue;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="title">Process Identification.</h5>
+                                                <p class="card-text text-white">
+                                                    Reference from : MIL-QP-G26-F4  R0  Process Identification
+                                                </p>
+                                            </div>
+                                           
+                                        </div>
+
+                                        @*<a href="#" class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</a>*@
+                                    </div>
+
+                                </div>
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <h5 class="header-title">Risk & Opportunity Assessment</h5>
+                                        <hr />
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr style="height:50px !important">
+                                                        
+                                                        <th rowspan="2" class="align-middle text-center pl-1 pr-1">
+                                                            รายการ<br />
+                                                            Items
+                                                        </th>
+                                                        <th rowspan="2" class="align-middle text-center">
+                                                            ประเด็นความเสี่ยง หรือโอกาส<br />
+                                                            Risk or Opportunity
+                                                        </th>
+                                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important">
+                                                            Risk/Opportunity
+                                                        </th>
+                                                        <th rowspan="2" class="align-middle text-center">ผลกระทบ <br /> Impact </th>
+                                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important">D (ทางตรง) & I (ทางอ้อม)</th>
+                                                        <th colspan="2" class="text-center">ผู้รับผลกระทบ</th>
+                                                        <th colspan="3" class="text-center">การประเมิน</th>
+                                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                                            Level (H/M/L)
+                                                            <svg width="20" height="20">
+                                                                <rect width="20" height="20" style="fill:#FF99CC;stroke-width:3;stroke:rgb(0,0,0)" />
+                                                            </svg>
+                                                        </th>
+                                                        <th rowspan="2" class="align-middle text-center">ดำเนินการ?</th>
+                                                        <th rowspan="2" class="align-middle text-center">หมายเหตุ <br />Remark</th>
+
+                                                    </tr>
+                                                    <tr style="height:50px !important">
+                                                        <th class="align-middle text-center">ภายใน <br /> Internal</th>
+                                                        <th class="align-middle text-center">ภายนอก <br /> External</th>
+                                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                                            Impact (I)
+                                                            <svg width="20" height="20">
+                                                                <rect width="20" height="20" style="fill:#FFFF00;stroke-width:3;stroke:rgb(0,0,0)" />
+                                                            </svg>
+                                                        </th>
+                                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                                            Likelihood (L)
+                                                            <svg width="20" height="20">
+                                                                <rect width="20" height="20" style="fill:#00FF00;stroke-width:3;stroke:rgb(0,0,0)" />
+                                                            </svg>
+
+                                                        </th>
+                                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">RPN (IxL)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                
+                                                        <td class="pl-1 pr-1 text-center">M</td>
+                                                        <td>กลึงก้นชิ้นงานไม่ตรงตาม Spec / ทำให้ชิ้นงานป็นรอย / เกิดของเสีย</td>
+                                                        <td class="text-center">R</td>
+                                                        <td>KPI Scrap</td>
+                                                        <td class="text-center">D</td>
+                                                        <td>12AB/CE</td>
+                                                        <td></td>
+                                                        <td class="text-center">3</td>
+                                                        <td class="text-center">4</td>
+                                                        <td class="text-center">12</td>
+                                                        <td class="text-center">M</td>
+                                                        <td class="text-center">Yes</td>
+                                                        <td>อ้างอิงการแก้ไขจาก CPAR CE0583</td>
+                                                    </tr>
+                                                    <tr>
+                                                        
+                                                        <td class="pl-1 pr-1 text-center">I</td>
+                                                        <td>ไม่มี OT/ชั่วโมงการทำงานน้อยลง/ผลิตงานไม่ทันกำหนด</td>
+                                                        <td class="text-center">R</td>
+                                                        <td>
+                                                            KPI Ontime
+                                                        </td>
+                                                        <td class="text-center">D</td>
+                                                        <td>12AB/CE</td>
+                                                        <td></td>
+                                                        <td class="text-center">3</td>
+                                                        <td class="text-center">4</td>
+                                                        <td class="text-center">12</td>
+                                                        <td class="text-center">M</td>
+                                                        <td class="text-center">No</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td class="pl-1 pr-1 text-center">C</td>
+                                                        <td>ไม่มีพื้นที่ / กลึงงานไม่ได้</td>
+                                                        <td class="text-center">R</td>
+                                                        <td>
+                                                            KPI Ontime
+                                                        </td>
+                                                        <td class="text-center">D</td>
+                                                        <td>12AB/CE</td>
+                                                        <td></td>
+                                                        <td class="text-center">3</td>
+                                                        <td class="text-center">4</td>
+                                                        <td class="text-center">12</td>
+                                                        <td class="text-center">M</td>
+                                                        <td class="text-center"><a href="#">Yes</a></td>
+                                                        <td>ได้มีการแก้ไขปรับปรุงแก้ไขตาม Improvement Plan แล้ว</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <h5 class="header-title">Improvement Plan</h5>
+                                        <hr />
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">No.</th>
+                                                    
+                                                        <th class="text-center" width="35%">Risk or Opportunity<br />ความเสี่ยงหรือโอกาส</th>
+                                                        <th class="text-center" width="40%">Actions items<br />รายละเอียดการดำเนินการ</th>
+                                                        <th class="text-center">Resource<br />ทรัพยากร</th>
+                                                        <th class="text-center">Action by<br />ผู้ดำเนินการ</th>
+                                                        <th class="text-center">Start Date<br />วันที่เริ่ม</th>
+                                                        <th class="text-center">Finish Date<br />วันที่เสร็จ</th>
+                                                        <th class="text-center">Status of Actions<br />สถานะการดำเนินการ</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(ImprovementPlanController.ActionPlanDetail,ImprovementPlanController.Name)'">
+                                                        <td class="text-center">1</td>
+                                                      
+                                                        <td>ขอบบริเวณ step cut ของ  stainless คมเนื่องจากชิ้นงานไม่ได้ center ทำให้ขอบ S/S คมและเป็นเสี้ยนทำให้เกิดของเสีย / คำร้องเรียนของลูกค้า</td>
+                                                        <td >
+                                                            <textarea class="form-control-plaintext" readonly rows="5" style="background-color:#ffffff00 !important;cursor:pointer;">
+1). Determined check and record the base plate level is sharp at trimming section.
+2). Prepare the limit sample.
+3). Add quality care point base level that it is sharp at trimming and assembly section for stainless base products.
+4). Arrange the training course check and record the base plate level is sharp, and comparing limits sample for trimming and assembly section.
+5). Issue ECR for reducing the size of the circle's stainless which increase tolerance of aluminium at base from 2.5 mm to 5 mm.
+                                                            </textarea>
+                                                           
+                                                        </td>
+                                                        <td>Trimming Machine</td>
+                                                        <td style="white-space:nowrap">Pittaya</td>
+                                                        <td style="white-space:nowrap">2020-09-01</td>
+                                                        <td style="white-space:nowrap">2021-03-31</td>
+                                                        <td><span class="badge badge-success">Completed</span></td>
+                                                    </tr>
+                                                    <tr style="cursor:pointer;" onclick="window.open('@Url.Action(ImprovementPlanController.ActionPlanDetail,ImprovementPlanController.Name)','_blank')">
+                                                        <td class="text-center">2</td>
+                                                        
+                                                        <td>ไม่มีพื้นที่ / ทำงานไม่ได้ </td>
+                                                        <td>
+                                                            <textarea class="form-control-plaintext" readonly rows="5" style="background-color:#ffffff00 !important;cursor:pointer;">
+CE แก้ปัญหาโดยการนำ Finished goods และ Raw material บางส่วนไปฝากไว้ที่ External WH
+                                                            </textarea>                                                            
+                                                        </td>
+                                                        <td></td>
+                                                        <td style="white-space:nowrap">Boonhome R.</td>
+                                                        <td style="white-space:nowrap">2021-08-25</td>
+                                                        <td style="white-space:nowrap">2022-01-31</td>
+                                                        <td><span class="badge badge-success">Completed</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque repudiandae quidem incidunt, a consectetur ipsam impedit.</p>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque repudiandae quidem incidunt, a consectetur ipsam impedit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+
+        @*<div class="row mt-3">
+            <div class="col-12">
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5>Process Risk and Opportunity Assessment</h5>
+                            </div>
+                            <div class="col-auto ml-auto">
+                                <a class="btn btn-primary" href="@Url.Action(ProcessRiskController.ActionCreateRisk,ProcessRiskController.Name)"><i class="fa fa-plus-circle"></i> New Risk or Opportunity</a>
+                            </div>
+                        </div>
+
+                        <hr />
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr style="height:50px !important">
+                                        <th rowspan="2" class="p-1"></th>
+                                        <th rowspan="2" class="align-middle text-center pl-1 pr-1">
+                                            รายการ<br />
+                                            Items
+                                        </th>
+                                        <th rowspan="2" class="align-middle text-center">
+                                            ประเด็นความเสี่ยง หรือโอกาส<br />
+                                            Risk or Opportunity
+                                        </th>
+                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important">
+                                            Risk/Opportunity
+                                        </th>
+                                        <th rowspan="2" class="align-middle text-center">ผลกระทบ <br /> Impact </th>
+                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important">D (ทางตรง) & I (ทางอ้อม)</th>
+                                        <th colspan="2" class="text-center">ผู้รับผลกระทบ</th>
+                                        <th colspan="3" class="text-center">การประเมิน</th>
+                                        <th rowspan="2" style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                            Level (H/M/L)
+                                            <svg width="20" height="20">
+                                                <rect width="20" height="20" style="fill:#FF99CC;stroke-width:3;stroke:rgb(0,0,0)" />
+                                            </svg>
+                                        </th>
+                                        <th rowspan="2" class="align-middle text-center">ดำเนินการ?</th>
+                                        <th rowspan="2" class="align-middle text-center">หมายเหตุ <br />Remark</th>
+
+                                    </tr>
+                                    <tr style="height:50px !important">
+                                        <th class="align-middle text-center">ภายใน <br /> Internal</th>
+                                        <th class="align-middle text-center">ภายนอก <br /> External</th>
+                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                            Impact (I)
+                                            <svg width="20" height="20">
+                                                <rect width="20" height="20" style="fill:#FFFF00;stroke-width:3;stroke:rgb(0,0,0)" />
+                                            </svg>
+                                        </th>
+                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">
+                                            Likelihood (L)
+                                            <svg width="20" height="20">
+                                                <rect width="20" height="20" style="fill:#00FF00;stroke-width:3;stroke:rgb(0,0,0)" />
+                                            </svg>
+
+                                        </th>
+                                        <th style="writing-mode: vertical-lr;transform: rotate(180deg); width:20px !important" class="pl-1 pr-1">RPN (IxL)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-1 text-center"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></td>
+                                        <td class="pl-1 pr-1 text-center">C</td>
+                                        <td>คุณภาพน้ำเสียไม่ผ่านมาตรฐาน / ต้องเสียค่าปรับ</td>
+                                        <td class="text-center">R</td>
+                                        <td>ค่าใช้จ่าย</td>
+                                        <td class="text-center">D</td>
+                                        <td>MIL</td>
+                                        <td></td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-center">L</td>
+                                        <td class="text-center">No</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-1 text-center"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></td>
+                                        <td class="pl-1 pr-1 text-center">M</td>
+                                        <td>พนักงานติดโควิด / ขาดแคลน Man power</td>
+                                        <td class="text-center">R</td>
+                                        <td>
+                                            ภาพรวม น้ำปนเปื้อน
+                                        </td>
+                                        <td class="text-center">D</td>
+                                        <td>MIL</td>
+                                        <td></td>
+                                        <td class="text-center">5</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">5</td>
+                                        <td class="text-center">L</td>
+                                        <td class="text-center"><a href="#">Yes</a></td>
+                                        <td>ปฏิบัติตามข้อปฏิบัติการป้องกัน Covid -19 ของ MIL</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="title">Process Risk and Opportunity Assessment.</h5>
+                                <p class="card-text ">
+                                    Reference from : MIL-QP-G26-F5  R1  Process Risk and Opportunity Assessment
+                                </p>
+                            </div>
+                            <div class="col-auto ml-auto text-right ">
+                            <p>Created by : <label class="text-primary">Teerawat P.</label> / Created date : <label class="text-primary">2023-03-08</label></p>
+                            <p>Reviewed by : <label class="text-primary">Agsornsak  C. & Kwanjai H.</label>  / Reviewed date : <label class="text-primary">2023-03-08</label></p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>
+

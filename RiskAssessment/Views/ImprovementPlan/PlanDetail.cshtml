@@ -13,92 +13,104 @@
                    asp-controller="@ImprovementPlanController.Name"><i class="fa fa-arrow-circle-left"></i> Back to list</a>
             </div>
         </div>
-        <div class="row pt-3">
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="seo-fact sbg1">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"><i class="fa-solid fa-building"></i> Division</div>
+                            <h2>CE</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="seo-fact sbg2">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"> <i class="fa-solid fa-sitemap"></i> Section</div>
+                            <h2>12AB</h2>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="seo-fact sbg3">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"> <i class="fa-solid fa-diagram-project"></i>Flow</div>
+                            <h2>Assembly</h2>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="seo-fact sbg4">
+                        <div class="p-4 d-flex justify-content-between align-items-center">
+                            <div class="seofct-icon"><i class="ti-panel"></i>Process</div>
+                            <h2>Trimming</h2>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</button>
-                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                        <h4>
+                            <span class="badge badge-success">Completed</span>
+                        </h4>                       
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <div class="form-group">
-                                    <label class="col-form-label">Process (กระบวนการ)</label>
-                                    <select class="custom-select" disabled>
-                                        <option selected="selected" >EDS</option>
-                                        
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label class="col-form-label">Status (สถานะ)</label>
-                                    <select class="custom-select" disabled>
-                                        <option selected="selected">Completed</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label class="col-form-label">Risk or Opportunity (ความเสี่ยงหรือโอกาส)</label>
-                                    <select class="custom-select" disabled>
-                                        <option selected="selected">สภาพของวัสดุที่ต้องการทิ้ง มีการเปลี่ยนหลังจากประมูลราคาแล้ว / ผู้รับเหมาไม่รับของ / ต้องประมูลราคาใหม่</option>
-                                     
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                        <dl class="row">
+                            <dt class="col-sm-4">Risk or Opportunity (ความเสี่ยงหรือโอกาส)</dt>
+                            <dd class="col-sm-8">ขอบบริเวณ step cut ของ  stainless คมเนื่องจากชิ้นงานไม่ได้ center ทำให้ขอบ S/S คมและเป็นเสี้ยนทำให้เกิดของเสีย / คำร้องเรียนของลูกค้า</dd>
+                        </dl>
+                        <hr/>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Action Items (รายละเอียดการดำเนินการ)</label>
-                                    <textarea class="form-control" type="text" readonly> สภาพของวัสดุที่ต้องการทิ้ง มีการเปลี่ยนหลังจากประมูลราคาแล้ว / ผู้รับเหมาไม่รับของ / ต้องประมูลราคาใหม่</textarea>
+                                    <label  class="font-weight-bolder text-dark">Action Items (รายละเอียดการดำเนินการ)</label>                                    
+                                    <textarea class="form-control-plaintext" type="text" readonly rows="8"> 1). Determined check and record the base plate level is sharp at trimming section.
+2). Prepare the limit sample.
+3). Add quality care point base level that it is sharp at trimming and assembly section for stainless base products.
+4). Arrange the training course check and record the base plate level is sharp, and comparing limits sample for trimming and assembly section.
+5). Issue ECR for reducing the size of the circle's stainless which increase tolerance of aluminium at base from 2.5 mm to 5 mm.
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Resource (ทรัพยากร)</label>
-                                    <textarea class="form-control" type="text" readonly> </textarea>
+                                    <label  class="font-weight-bolder text-dark">Resource (ทรัพยากร)</label>
+                                    <textarea class="form-control-plaintext" type="text" readonly>Trimming Machine </textarea>
                                 </div>
                             </div>
                             <div class="col">
-
                                 <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Successful Index (ดัชนีชี้วัดความสำเร็จ)</label>
-                                    <textarea class="form-control" type="text" readonly >ต้องไม่มีการ Re-bidding ที่เกิดจากการเปลี่ยน Condition ของวัสดุที่ขาย ในปี 2020 </textarea>
+                                    <label  class="font-weight-bolder text-dark">Successful Index (ดัชนีชี้วัดความสำเร็จ)</label>
+                                    <textarea class="form-control-plaintext" type="text" readonly>ไม่มีการร้องเรียนจากลูกค้าในประเด็นของสีด้ามไม่เหมือน อย่างน้อย 3 เดือนหลังจากทำการแก้ไข </textarea>
                                 </div>
-
-
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="example-date-input" class="col-form-label">Start Date (วันที่เริ่ม)</label>
-                                    <input class="form-control" type="date" value="2020-01-01" id="example-date-input" disabled>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="example-date-input" class="col-form-label">Finish Date (วันที่เสร็จ)</label>
-                                    <input class="form-control" type="date" value="2020-12-31" id="example-date-input" disabled>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Action by (ผู้ดำเนินการ)</label>
-                                    <input class="form-control" type="text" value="@Context.User.FindFirstValue(AccountClaim.Name)" readonly />
-                                </div>
-                            </div>
-
-                        </div>
+                        <dl class="row">
+                            <dt class="col-auto">Start Date (วันที่เริ่ม)</dt>
+                            <dd class="col-sm-2">2020-09-01</dd>
+                            <dt class="col-auto">Finish Date (วันที่เสร็จ)</dt>
+                            <dd class="col-sm-2">2021-03-31</dd>
+                            <dt class="col-auto">Action by (ผู้ดำเนินการ)</dt>
+                            <dd class="col-sm">Tanapat Tansara</dd>
+                        </dl>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Remark (หมายเหตุ)</label>
-                                    <textarea class="form-control" type="text" readonly>ปิดแผน </textarea>
+                                    <label class="font-weight-bolder text-dark">Remark (หมายเหตุ)</label>
+                                    <textarea class="form-control-plaintext" type="text" readonly>อ้างอิงการแก้ไขจาก GQP # 19-005 (Customer reference : CPARMUK#) </textarea>
                                 </div>
                             </div>
                         </div>
@@ -106,6 +118,7 @@
                 </div>
             </div>
         </div>
+       
 
         <div class="row pt-3">
             <div class="col-12">
@@ -140,7 +153,7 @@
                                                 <td>1.</td>
                                                 <td>Tanapat Tansara</td>
                                                 <td>2023-06-01</td>
-                                                <td>ยังไม่เรียบร้อย</td>
+                                                <td>กำลังดำเนินการ</td>
                                                 <td><span class="badge badge-primary">In-Process</span></td>
                                                 <td>รอดำเนินการในขั้นตอนถัดไป</td>
                                             </tr>
@@ -148,7 +161,7 @@
                                                 <td>2.</td>
                                                 <td>Tanapat Tansara</td>
                                                 <td>2023-06-15</td>
-                                                <td>ไม่พบการ Re-bidding เนื่องจากการเปลี่ยนข้อตกลง ของวัสดุที่ทำการซื้อขายในปี 2021 ที่ผ่านมา</td>
+                                                <td>จากการแก้ไขตาม Corrective/Preventive Action ที่ระบุใน GQP ตั้งแต่ 04/01/2019 ถึง 31/03/2021 พบว่าพนักงานปฏิบัติตาม Action ที่ระบุไว้และไม่มีการ complain จากลูกค้า  ดังนั้นปัจจุบันสถานะของ CPAR ดังกล่าวจึงถูกปิด (CPAR Filed MUK 19-005)</td>
                                                 <td><span class="badge badge-success">Completed</span></td>
                                                 <td></td>
                                             </tr>
@@ -208,3 +221,19 @@
         </div>
     </div>
 </div>
+<style>
+    textarea {
+        resize: none;
+        min-height:47px;
+    }
+</style>
+@section Scripts{
+    <script>
+        $("textarea").each(function () {
+            this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+        }).on("input", function () {
+            this.style.height = 0;
+            this.style.height = (this.scrollHeight) + "px";
+        });
+    </script>
+}

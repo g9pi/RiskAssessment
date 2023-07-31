@@ -36,6 +36,8 @@ namespace RiskAssessment.Controllers
         internal string _accountEmail => HttpContext.User.FindFirstValue(AccountClaim.Email);
         internal string _accountName => HttpContext.User.FindFirstValue(AccountClaim.Name);
         internal string _accountUserGroup => HttpContext.User.FindFirstValue(AccountClaim.UserGroup);
+        internal string _accountDivision => HttpContext.User.FindFirstValue(AccountClaim.Division);
+        internal string _accountSection => HttpContext.User.FindFirstValue(AccountClaim.Section);
 
         internal string _emailHost => _configuration.GetSection("Email:Host").Value;
         internal int _emailPort => int.Parse(_configuration.GetSection("Email:Port").Value);

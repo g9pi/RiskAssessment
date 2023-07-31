@@ -1,7 +1,7 @@
 ﻿@model EditUserModel
 @{
 
-    ViewData["Title"] = "Create Process";
+    ViewData["Title"] = "Create New Flow";
 }
 <div id="app">
     <div class="pt-3">
@@ -10,19 +10,287 @@
                 <h3 class=" text-white">@ViewData["Title"]</h3>
             </div>
             <div class="col-auto ml-auto ">
-                <a class="btn btn-outline-warning text-white" asp-action="@ProcessRiskController.ActionProcessRisk"
-                   asp-controller="@ProcessRiskController.Name"><i class="fa fa-arrow-circle-left"></i> Back</a>
+                <a class="btn btn-outline-warning text-white" asp-action="@SettingController.ActionProcessRiskControl"
+                   asp-controller="@SettingController.Name"><i class="fa fa-arrow-circle-left"></i> Back</a>
 
             </div>
         </div>
     </div>
-   
+   <div class="row mt-3">
+       <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div id="stepper3" class="bs-stepper">
+                        <div class="bs-stepper-header" role="tablist">
+                            <div class="step" data-target="#test-nlf-1">
+                                <button type="button" class="step-trigger" role="tab" id="stepper3trigger1" aria-controls="test-nlf-1">
+                                    <span class="bs-stepper-circle">
+                                        <i class="fa-solid fa-diagram-project"></i>
+
+                                    </span>
+                                    <span class="bs-stepper-label">Flow</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-nlf-2">
+                                <button type="button" class="step-trigger" role="tab" id="stepper3trigger2" aria-controls="test-nlf-2">
+                                    <span class="bs-stepper-circle">
+                                        <i class="ti-panel"></i>
+                                    </span>
+                                    <span class="bs-stepper-label">Processes</span>
+                                </button>
+                            </div>
+
+                            <div class="bs-stepper-line"></div>
+                            <div class="step" data-target="#test-nlf-3">
+                                <button type="button" class="step-trigger" role="tab" id="stepper3trigger3" aria-controls="test-nlf-3">
+                                    <span class="bs-stepper-circle">
+                                        <i class="fa-solid fa-flag"></i>
+                                    </span>
+                                    <span class="bs-stepper-label">Risks</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <form onSubmit="return false">
+                                <div id="test-nlf-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper3trigger1">
+                                    <h5>
+                                        Flow Detail
+                                    </h5>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputName2">Flow Name</label>
+                                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter your flow name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="exampleInputName2">Division</label>
+                                                <input type="text" class="form-control" readonly value="CE">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="exampleInputName2">Section</label>
+                                                <input type="text" class="form-control" readonly value="12AB">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+                                    <h5>
+                                        Process Flow and Interaction.
+                                    </h5>
+                                    <hr />
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="test-nlf-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper3trigger2">
+                                    <h5>
+                                        Process Identification
+                                    </h5>
+                                    <hr />
+                                    <div class="row align-items-end">
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item active"><h5>Machine/Equipment</h5></li>
+                                                <li v-for="(item,index) in process_idtfy.MachineEqp" class="list-group-item">
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" v-model="process_idtfy.MachineEqp[index]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger btn-xs" type="button" @@click="process_idtfy.MachineEqp[index] = ''"><i class="fa-solid fa-circle-xmark"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-xs btn-block btn-info" @@click="process_idtfy.MachineEqp.push('')"><i class="fa fa-plus-circle"></i> Add</button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h1 class="text-primary">
+                                                        <i class="fa-solid fa-arrow-turn-down fa-2x"></i>
+                                                    </h1>
+
+                                                </div>
+                                                <div class="col text-right">
+                                                    <h1 class="text-primary">
+                                                        <i class="fa-solid fa-arrow-turn-up  fa-rotate-180  fa-2x"></i>
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item active"><h5>Man</h5></li>
+
+                                                <li v-for="(item,index) in process_idtfy.Man" class="list-group-item">
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" v-model="process_idtfy.Man[index]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger btn-xs" type="button" @@click="process_idtfy.Man[index] = ''"><i class="fa-solid fa-circle-xmark"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-xs btn-block btn-info" @@click="process_idtfy.Man.push('')"><i class="fa fa-plus-circle"></i> Add</button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item active"><h5>Input</h5></li>
+                                                <li v-for="(item,index) in process_idtfy.Input" class="list-group-item">
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" v-model="process_idtfy.Input[index]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger btn-xs" type="button" @@click="process_idtfy.Input[index] = ''"><i class="fa-solid fa-circle-xmark"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-xs btn-block btn-info" @@click="process_idtfy.Input.push('')"><i class="fa fa-plus-circle"></i> Add</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col ">
+                                            <div class="row align-items-center">
+                                                <div class="col-auto  ">
+
+                                                    <h1 class="text-primary">
+                                                        <i class="fa-solid fa-arrow-right fa-beat fa-xl"></i>
+                                                    </h1>
+                                                </div>
+                                                <div class="col text-center p-0">
+                                                    <div class="alert alert-primary p-3" role="alert">
+                                                        <h4>Process name</h4>
+                                                        <br />
+                                                        <input class="form-control" type="text" />
+                                                        @*<h5 class="card-subtitle">Wastewater Treatment</h5>*@
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-auto ">
+                                                    <h1 class="text-primary">
+                                                        <i class="fa-solid fa-arrow-right fa-beat fa-xl"></i>
+                                                    </h1>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item active"><h5>Output</h5></li>
+                                                <li v-for="(item,index) in process_idtfy.Output" class="list-group-item">
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" v-model="process_idtfy.Output[index]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger btn-xs" type="button" @@click="process_idtfy.Output[index] = ''"><i class="fa-solid fa-circle-xmark"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-xs btn-block btn-info" @@click="process_idtfy.Output.push('')"><i class="fa fa-plus-circle"></i> Add</button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row align-items-start">
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item active"><h5>Method</h5></li>
+                                                <li v-for="(item,index) in process_idtfy.Method" class="list-group-item">
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" v-model="process_idtfy.Method[index]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger btn-xs" type="button" @@click="process_idtfy.Method[index] = ''"><i class="fa-solid fa-circle-xmark"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-xs btn-block btn-info" @@click="process_idtfy.Method.push('')"><i class="fa fa-plus-circle"></i> Add</button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h1 class="text-primary">
+                                                        <i class="fa-solid fa-arrow-turn-up fa-2x"></i>
+                                                    </h1>
+
+                                                </div>
+                                                <div class="col text-right">
+                                                    <h1 class="text-primary">
+                                                        <i class="fa-solid fa-arrow-turn-down  fa-rotate-180  fa-2x"></i>
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item active"><h5>Control/Measurement</h5></li>
+                                                <li v-for="(item,index) in process_idtfy.Control" class="list-group-item">
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" v-model="process_idtfy.Control[index]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger btn-xs" type="button" @@click="process_idtfy.Control[index] = ''"><i class="fa-solid fa-circle-xmark"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button class="btn btn-xs btn-block btn-info" @@click="process_idtfy.Control.push('')"><i class="fa fa-plus-circle"></i> Add</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="test-nlf-3" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="stepper3trigger3">
+                                    <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+   </div>
     <div class="row mt-2">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h5>
-                        Process Detail
+                        Flow Detail
                     </h5>
                     <hr />
                     <div class="row">
@@ -328,11 +596,19 @@
         </div>
     </div>
    
+   
 </div>
 
 @section Scripts{
-
+    <partial name="_Vue3" />
     <script>
+        $(document).ready(function () {
+            var stepper3 = new Stepper(document.querySelector('#stepper3'), {
+                linear: false,
+                animation: true
+            })
+          
+        })
         var data = {
             "class": "go.GraphLinksModel",
             "linkFromPortIdProperty": "fromPort",

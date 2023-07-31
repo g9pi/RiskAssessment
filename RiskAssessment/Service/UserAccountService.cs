@@ -6,7 +6,6 @@ using RiskAssessment.Models;
 using System.Collections.Generic;
 using System.Linq;
 using RiskAssessment.Models.Filters;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace RiskAssessment.Service
 {

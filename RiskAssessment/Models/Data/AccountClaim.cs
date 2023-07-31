@@ -18,7 +18,7 @@
     public struct RelativePath
     {
         public const string Commons = "wwwroot\\assets\\commons\\";
-        public const string File = "wwwroot\\assets\\files\\";
+        public const string File = "wwwroot\\files\\profile_imgs\\";
     }
 
 }

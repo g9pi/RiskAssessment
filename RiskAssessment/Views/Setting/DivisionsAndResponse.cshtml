@@ -1,0 +1,580 @@
+﻿@{
+
+    ViewData["Title"] = "Division and Reviewer User Setting";
+}
+@model DivAndResponseSettingViewModel
+<div id="app">
+    <div class="pt-3">
+        <div class="row">
+            <div class="col">
+                <h3 class="pt-5 text-white"><i class="fa-solid fa-gears"></i> @ViewData["Title"] </h3>
+            </div>
+            
+
+        </div>
+
+    </div>
+    <div class="row pt-3">
+        <div class="col-auto">
+            <div class="card h-100">
+                <div class="card-body p-3">
+
+                    <div class="nav flex-column nav-pills mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        @foreach (var item in Model.Divisions)
+                        {
+                            <a class="nav-link @(item.DivisionName == Model.Division.DivisionName ? "active": "")" id="@item.DivisionName" @*data-toggle="pill"*@ href="@Url.Action(SettingController.ActionDivisionsAndResponse,SettingController.Name,new{divisionName = @item.DivisionName})" role="tab" aria-controls="v-pills-home" aria-selected="false">@item.DivisionName</a>
+                        }
+                        <button class="btn btn-info" @@click="newDivision"><i class="fa-solid fa-circle-plus"></i> New Division</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <h4 class="pt-2">{{division_obj.divisionName}}</h4>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-sm btn-warning" @@click="editDivision('@Model.Division.DivisionName','@Model.Division.DivisionId','@Model.Division.IsActive')"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        </div>
+                                        <div class="col-auto ml-auto ">
+                                            @if (Model.Division.IsActive)
+                                            {
+                                                <h4><span class="badge badge-success">Active</span></h4>
+                                            }
+                                            else
+                                            {
+                                                <h4><span class="badge badge-danger">Inactive</span></h4>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div class="col-12" style="height:65vh;overflow-y:auto">
+                                    <template v-for="(item,index) in division_obj.sections">
+                                        <div class="row mt-3">
+                                            <div class="col-2 text-center">
+                                                <h5> <a href="#" @@click="editSectionName(item)" data-toggle="tooltip" data-placement="top" title="Click to Rename">{{item.sectionname}}</a></h5>
+
+
+                                                <br />
+
+                                                <form>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" :id="'Switch1'+index" v-model="division_obj.sections[index].isActive" @@change="updateStatus($event,item.sectionId,index)">
+                                                        <label class="custom-control-label" :for="'Switch1'+index" v-if="division_obj.sections[index].isActive"><span class="badge badge-success" style="font-size:90% !important">Active</span></label>
+                                                        <label class="custom-control-label" :for="'Switch1'+index" v-else><span class="badge badge-danger" style="font-size:90% !important">Inactive</span></label>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col">
+                                                <div class="for-group">
+                                                    <label>Reviewer LV.1</label>
+                                                    <select class="selectpicker w-100" data-live-search="true" v-model="division_obj.sections[index].lV1Value_4DDL" multiple data-max-options="2" @@change="updateReviewer(item.sectionId,1,$event,'SEC')">
+
+                                                        @foreach (var option in Model.Users_ddl)
+                                                        {
+                                                            if (option.Disabled)
+                                                            {
+                                                                <option data-tokens="@option.Text" value="@option.Value" disabled>@option.Text</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option data-tokens="@option.Text" value="@option.Value">@option.Text</option>
+                                                            }
+
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="for-group">
+                                                    <label>Reviewer LV.2</label>
+
+                                                    <select class="selectpicker w-100" data-live-search="true" v-model="division_obj.sections[index].lV2Value_4DDL" multiple data-max-options="2" @@change="updateReviewer(item.sectionId,2,$event,'SEC')">
+
+                                                        @foreach (var option in Model.Users_ddl)
+                                                        {
+                                                            if (option.Disabled)
+                                                            {
+                                                                <option data-tokens="@option.Text" value="@option.Value" disabled>@option.Text</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option data-tokens="@option.Text" value="@option.Value">@option.Text</option>
+                                                            }
+
+                                                        }
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                    </template>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-block btn-info" @@click="newSection(division_obj.divisionName)"><i class="fa-solid fa-circle-plus"></i> New Section</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="header-title">Interaction between processes-parties</h5>
+                            <hr />
+                            <div class="row">
+                                <div class="col">
+                                    <div class="for-group">
+                                        <label>Reviewer LV.1</label>
+                                        <select class="selectpicker w-100" data-live-search="true" v-model="division_obj.reviewerIBP_LV1" multiple data-max-options="2" @@change="updateReviewer(division_obj.divisionId,1,$event,'DIV')">
+
+                                            @foreach (var option in Model.Users_ddl)
+                                            {
+                                                if (option.Disabled)
+                                                {
+                                                    <option data-tokens="@option.Text" value="@option.Value" disabled>@option.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option data-tokens="@option.Text" value="@option.Value">@option.Text</option>
+                                                }
+
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="for-group">
+                                        <label>Reviewer LV.2</label>
+
+                                        <select class="selectpicker w-100" data-live-search="true" v-model="division_obj.reviewerIBP_LV2" multiple data-max-options="2" @@change="updateReviewer(division_obj.divisionId,2,$event,'DIV')">
+
+                                            @foreach (var option in Model.Users_ddl)
+                                            {
+                                                if (option.Disabled)
+                                                {
+                                                    <option data-tokens="@option.Text" value="@option.Value" disabled>@option.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option data-tokens="@option.Text" value="@option.Value">@option.Text</option>
+                                                }
+
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_Vue3" />
+    <script>
+        const viewmodel = @Html.Raw(Json.Serialize(Model))
+        const division = @Html.Raw(Json.Serialize(Model.Division))       
+        const { createApp } = Vue
+        const app = createApp({
+            data() {
+                return {                   
+                    division_obj:{
+                        divisionName:'',
+                        sections:[],
+                        isActive:false
+                    },
+                    UserAccount: {
+                        Username: '',
+                        EmployeeNo: '',
+                        Name: '',
+                        Division: '',
+                        Section: '',
+                        Email: '',
+                        Group: ''
+                    }
+                }
+            },
+            mounted() {
+                
+            },
+            methods: {
+                updateReviewer(id,lv,event,Rtype){
+                                 
+                    var value = $(event.target).val()
+                   
+                    var input = {
+                        SectionId: id,
+                        LV: lv,
+                        UserIds : value,
+                        ReviewType:Rtype
+                    }
+                    $.ajax({
+                        async: true,
+                        url: '@Url.Action(SettingController.ActionUpdateReviewer,SettingController.Name)',
+                        type: 'POST',
+                        data: input,
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response)
+                            if (response.code == 200) {
+                                toastr["success"]("Your setting have been save!")
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1800
+                                })
+                                setTimeout(function () {
+                                    window.location.reload()
+                                    
+                                }, 1800);
+                             
+                            }
+                        },
+                        error: function (err) {
+                            console.error(err);
+                        }
+                    });
+
+
+                },
+                editDivision:function(DivisionName,DivisionId,Isactive){
+                    //console.log(Isactive)
+                    //console.log(typeof Isactive)
+                    var isActive = Isactive == "False"? false :true
+                    console.log(isActive)
+                    var input = {
+                        DivisionId: DivisionId,
+                        DivisionName: DivisionName
+                    }
+                    Swal.fire({
+                            title: 'Divisions Setting',
+                            html:
+                            '<input id="swal-input1" class="swal2-input" value="' + DivisionName + '">' +
+                            '<select id="swal-input2" class="swal2-select" style="min-width:60%;border: 1px solid #d9d9d9;">' +
+                            '<option value="true" ' + (isActive? 'selected':'') + '>Active</option>' +
+                            '<option value="false" ' + (!isActive ? 'selected' : '') + '>Inactive</option>' +
+                                '</select>',
+                            focusConfirm: false,
+                            confirmButtonText: 'Submit',
+                            showCancelButton: true,
+                            showLoaderOnConfirm: true,
+                            preConfirm: () => {                              
+                                    return new Promise((resolve) => {
+                                            input.DivisionName = document.getElementById('swal-input1').value,
+                                            input.Isactive = document.getElementById('swal-input2').value
+                                        $.ajax({
+                                            url: '@Url.Action(SettingController.ActionSaveDivision, SettingController.Name)',
+                                            method: 'POST',
+                                            data: {
+                                                input: input
+                                            },
+                                            success: function (response) {
+                                                if (response.code != 200) {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Oops...',
+                                                        text: response.message,
+                                                    })
+                                                } else {
+                                                    resolve(true)
+
+                                                }
+                                            }
+                                        });
+                                    })
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+
+                        }).then((result) => {
+                        console.log(input.DivisionName)
+                                if (result.value) {
+                                    swal.fire({
+                                        icon: 'success',
+                                        title: 'Your data has been saved',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+
+
+                                    setTimeout(function () {
+                                        //your code to be executed after 1 second
+                                window.location.href = '@Url.Action(SettingController.ActionDivisionsAndResponse,SettingController.Name)' + '?divisionName=' + input.DivisionName
+                                    }, 1500);
+                                }
+                        })
+
+                },
+                updateStatus(e,id,index) {
+                    var value = e.target.checked                   
+                    var id = id    
+                    var app = this
+                    $.ajax({
+                        async: true,
+                        url: '@Url.Action(SettingController.ActionSaveSectionStatus,SettingController.Name)',
+                        type: 'POST',
+                        data: {
+                            sectionId: id,
+                            isActive: value
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            //console.log(response)
+                            if (response.code == 200) {
+                                toastr["success"]("Your setting have been save!")
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1800
+                                })
+                                app.division_obj.sections[index].isActive = !app.division_obj.sections[index].isActive
+                                $(e.target).prop("checked", !value);
+                            }
+                        },
+                        error: function (err) {
+                            console.error(err);
+                        }
+                    });
+                },
+                newDivision(){
+                    var input = {
+                        DivisionName: ''
+                       
+                    }
+                    Swal.fire({
+                        title: 'Enter new Division name',
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Submit',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (division) => {
+                            return new Promise((resolve) => {
+                                input.DivisionName = division
+                                $.ajax({
+                                    url: '@Url.Action(SettingController.ActionSaveDivision, SettingController.Name)',
+                                    method: 'POST',
+                                    data: {
+                                        input: input
+                                    },
+                                    success: function (response) {
+                                        if (response.code != 200) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: response.message,
+                                            })
+                                        } else {
+
+                                            //Swal.fire({
+                                            //    icon: 'success',
+                                            //    title: response.title,
+                                            //    text: response.message,
+                                            //})
+                                            resolve()
+
+                                        }
+                                    }
+                                });
+                            })
+
+
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.value) {
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Your data has been saved',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+
+
+                            setTimeout(function () {
+                                //your code to be executed after 1 second
+                                window.location.reload()
+                            }, 1500);
+                        }
+                    })
+                    
+                },
+                editSectionName(section){
+                    //console.log(section)
+                    //var input = JSON.parse(JSON.stringify(section))
+                    var input = {
+                        SectionId: section.sectionId,
+                        Sectionname: section.sectionname,
+                        division :section.division,
+                        IsActive: section.isActive
+                    }
+                    swal.fire({
+                        title: 'Rename Section ' + section.sectionname,
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        inputValue: section.sectionname,
+                        showCancelButton: true,
+                        confirmButtonText: 'Submit',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (inputsection) => {
+                            return new Promise((resolve) => { 
+                               
+                                input.Sectionname = inputsection
+                                console.log(input)
+                                $.ajax({
+                                    url: '@Url.Action(SettingController.ActionSaveSection, SettingController.Name)',
+                                    method: 'POST',
+                                    data: {
+                                        input: input
+                                    },
+                                    success: function (response) {
+                                        if (response.code != 200) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: response.message,
+                                            })
+                                        } else {
+
+                                            //Swal.fire({
+                                            //    icon: 'success',
+                                            //    title: response.title,
+                                            //    text: response.message,
+                                            //})
+                                            resolve()
+
+                                        }
+                                    }
+                                });
+                                
+                            })
+
+
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.value) {
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Your data has been saved',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+
+
+                            setTimeout(function () {
+                                //your code to be executed after 1 second
+                                window.location.reload()
+                            }, 1500);
+                        }
+                    })
+                },
+                newSection(Division) {
+                    var input = {
+                        Division: Division,
+                        Sectionname : ''
+                    }
+                    Swal.fire({
+                        title: 'Enter new Section name for ' + Division,
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Submit',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (section) => {
+                            return new Promise((resolve) => {
+                                input.Sectionname = section
+                                $.ajax({
+                                    url: '@Url.Action(SettingController.ActionSaveSection, SettingController.Name)',
+                                    method: 'POST',
+                                    data: {
+                                        input: input
+                                    },
+                                    success: function (response) {
+                                        if (response.code != 200) {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: response.message,
+                                            })
+                                        } else {
+
+                                            //Swal.fire({
+                                            //    icon: 'success',
+                                            //    title: response.title,
+                                            //    text: response.message,
+                                            //})
+                                            resolve()
+
+                                        }
+                                    }
+                                });
+                            })
+                            
+                            
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.value) {
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Your data has been saved',
+                                showConfirmButton: false,
+                                timer: 1500                              
+                            })
+                           
+
+                            setTimeout(function () {
+                                //your code to be executed after 1 second
+                                window.location.reload()
+                            }, 1500);
+                        }
+                    })
+
+                },
+               
+            }
+        }).mount('#app');
+
+
+        $(function () {
+            //app.model = viewmodel
+            //console.log(division)
+            app.division_obj = division
+            console.log(app.division_obj)
+            $('[data-toggle="tooltip"]').tooltip()
+
+           
+        });
+    </script>
+ 
+}

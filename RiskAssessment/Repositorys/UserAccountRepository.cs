@@ -21,7 +21,7 @@ namespace RiskAssessment.Repositorys
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = con;
-                command.CommandText = @"INSERT INTO RAS_USER_ACCOUNT (USENAM,PSSWRD,EMP_NO,NAME,EMAIL,DIVCDE,SECCDE,USEGRP,ISACTIVE,USECRE,IP_CRE,CREDTE)
+                command.CommandText = @"INSERT INTO RA_USER_ACCOUNT (USENAM,PSSWRD,EMP_NO,NAME,EMAIL,DIVCDE,SECCDE,USEGRP,ISACTIVE,USECRE,IP_CRE,CREDTE)
                                                    VALUES (@USERNAME,@PASSWORD,@EMP_NO,@NAME,@EMAIL,@DIVISION,@SECTION,@GROUP,1,@USECRE,@IPCRE,GETDATE())";
                 command.Parameters.Add(new SqlParameter("@USERNAME", (object)user.Username ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@EMP_NO", (object)user.EmployeeNo ?? DBNull.Value));
@@ -45,7 +45,7 @@ namespace RiskAssessment.Repositorys
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = con;
-                command.CommandText = @"UPDATE RAS_USER_ACCOUNT SET EMP_NO = @EMP_NO,NAME = @NAME,EMAIL = @EMAIL,DIVCDE = @DIVISION,SECCDE = @SECTION,USEGRP = @GROUP,IMG_FILE = @IMG_FILE,
+                command.CommandText = @"UPDATE RA_USER_ACCOUNT SET EMP_NO = @EMP_NO,NAME = @NAME,EMAIL = @EMAIL,DIVCDE = @DIVISION,SECCDE = @SECTION,USEGRP = @GROUP,IMG_FILE = @IMG_FILE,
 USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
                 //command.Parameters.Add(new SqlParameter("@USERNAME", (object)user.Username ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@EMP_NO", (object)user.EmployeeNo ?? DBNull.Value));
@@ -69,7 +69,7 @@ USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                string query = "UPDATE RAS_USER_ACCOUNT SET ISACTIVE = @ISACTIVE,USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
+                string query = "UPDATE RA_USER_ACCOUNT SET ISACTIVE = @ISACTIVE,USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
                 SqlCommand command = new SqlCommand(query, con);
                 command.Parameters.AddWithValue("@USER_ID", (object)user.UserId ?? DBNull.Value);
                 command.Parameters.AddWithValue("@ISACTIVE", (object)user.Isactive ?? DBNull.Value);
@@ -85,7 +85,7 @@ USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                string query = "UPDATE RAS_USER_ACCOUNT SET PSSWRD = @PASSWORD,USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
+                string query = "UPDATE RA_USER_ACCOUNT SET PSSWRD = @PASSWORD,USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
                 SqlCommand command = new SqlCommand(query, con);
                 command.Parameters.AddWithValue("@USER_ID", (object)user.UserId ?? DBNull.Value);
                 command.Parameters.AddWithValue("@PASSWORD", (object)user.Password ?? DBNull.Value);
@@ -103,7 +103,7 @@ USEMOD = @USEMOD,IP_MOD = @IPMOD,MODDTE = GETDATE() WHERE USER_ID = @USER_ID";
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = con;
-                command.CommandText = "SELECT * FROM RAS_USER_ACCOUNT";
+                command.CommandText = "SELECT * FROM RA_USER_ACCOUNT";
                 con.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())

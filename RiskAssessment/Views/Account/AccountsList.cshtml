@@ -1,10 +1,10 @@
 ﻿@model AccountListModel
 @{
-    ViewData["Title"] = "Account List";
+    ViewData["Title"] = "Accounts List";
 }
 <div  id="app">
     <div class="pt-3">
-        <h3 class="pt-5 text-white">Accounts</h3>
+        <h3 class="pt-5 text-white"><i class="fa-solid fa-gears"></i> @ViewData["Title"]</h3>
     </div>
     
     <div class="row pt-2">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Section</label>
+                                    <label asp-for="Section" class="col-form-label">Section</label>
                                     <select class="custom-select" asp-for="Section">
                                         <option value="">- Select All -</option>
                                         @foreach (var item in Model.Section_ddl)
@@ -122,12 +122,12 @@
                                                 @if(item.ImageName != null)
                                                 {
                                                     <img class="avatar user-thumb rounded-circle" src="@Url.Action(StorageController.ActionGetImage, StorageController.Name, new { name = item.ImageName })"
-                                                         alt="avatar" width="35" height="35">
+                                                         alt="avatar" width="35" height="35" style="min-height:35px;min-height:35px">
                                                 }
                                                 else
                                                 {
                                                     <img class="avatar user-thumb rounded-circle" src="~/assets/images/avatar/avatar.jpg"
-                                                         alt="avatar" width="35" height="35">
+                                                         alt="avatar" width="35" height="35" style="min-height:35px;min-height:35px">
                                                 }                                                               
                                             </td>
                                             <td>@item.Username</td>
@@ -271,12 +271,13 @@
     
 </div>
 @section Scripts{
+    <partial name="_Vue3" />
     <script>
+        
         const { createApp } = Vue
         const app = createApp({
             data() {
-                return {
-                    
+                return {                  
                     UserAccount: {
                         Username: '',
                         EmployeeNo: '',
@@ -412,6 +413,10 @@
 
             $("#searchclear").click(function () {
                 $("#Section").select2('val', 'All');
+                document.getElementById('myform').reset();
+                //$("#Section").val("")
+                //$("#Division").val("")
+                //console.log($("#Section").val())
             });
 
             $('#Section').select2({

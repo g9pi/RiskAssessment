@@ -7,9 +7,9 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.2.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.22" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="3.0.0" />
+    <PackageReference Include="SharpZipLib" Version="1.3.3" />
     <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
@@ -17,6 +17,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\HTML_Template\" />
     <Folder Include="wwwroot\assets\files\" />
+    <Folder Include="wwwroot\files\flows\" />
+    <Folder Include="wwwroot\files\profile_imgs\" />
   </ItemGroup>
 
 </Project>

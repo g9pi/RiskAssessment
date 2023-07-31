@@ -8,6 +8,8 @@ using System.Security.Claims;
 using System;
 using RiskAssessment.Models;
 using RiskAssessment.Service;
+using static RiskAssessment.Models.Common;
+using System.Xml.Linq;
 
 namespace RiskAssessment.Controllers
 {
@@ -17,6 +19,7 @@ namespace RiskAssessment.Controllers
         public const string Name = "Storage";
 
         public const string ActionGetImage = nameof(GetImage);
+        public const string ActionFile = nameof(GetFile);
         public const string ActionGetImageProfile = nameof(GetImageProfile);
         public const string ActionSaveImageProfile = nameof(SaveImageProfile);
 
@@ -39,7 +42,7 @@ namespace RiskAssessment.Controllers
         {
             try
             {
-                var file = _storageService.GetImage(name);
+                var file = _storageService.GetImage(name, AbsolutePath.UserImage);
                 return Ok(file);
             }
             catch (Exception)
@@ -54,7 +57,7 @@ namespace RiskAssessment.Controllers
             {
                 var userId = int.Parse(HttpContext.User.FindFirstValue(AccountClaim.UserId));
                 var fileName = _userAccountService.GetUserByUserId(userId)?.ImageName;
-                return Ok(_storageService.GetImage(fileName));
+                return Ok(_storageService.GetImage(fileName, AbsolutePath.UserImage));
             }
             catch (Exception)
             {
@@ -72,12 +75,10 @@ namespace RiskAssessment.Controllers
                 if (userId == 0 || file == null) return Json(new { code = 400, message = "UserId and File are required." });
                 if (file != null)
                 {
-                    fileName = _storageService.SaveImage(file);
-     
+                    fileName = _storageService.SaveImage(file, AbsolutePath.UserImage);     
                     UserModel user = _userAccountService.GetUserByUserId(userId);
                     old_fileName = user.ImageName;
                     user.ImageName = fileName;
-
                     _userAccountService.SaveUser(user);
                 }
                 if(old_fileName != null)
@@ -91,6 +92,21 @@ namespace RiskAssessment.Controllers
                 return Json(new { code = 500, message = ex.Message });
             }
         }
-        
+
+
+        [HttpGet]
+        public IActionResult GetFile(string name)
+        {
+            try
+            {
+                var file = _storageService.GetFile(name, AbsolutePath.Flows);
+                return Ok(file);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
     }
 }

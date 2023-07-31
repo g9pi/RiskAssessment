@@ -178,7 +178,9 @@
 
 
 @section Scripts{
+    <partial name="_Vue3" />
     <script>
+        
         const model = @Html.Raw(Json.Serialize(Model))
         const { createApp } = Vue
         const app =  createApp({

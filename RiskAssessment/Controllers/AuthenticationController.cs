@@ -196,7 +196,7 @@ namespace RiskAssessment.Controllers
                     });
                 }
                 string body = null;
-                using (StreamReader reader = new StreamReader("wwwroot/assets/forgetPassword.html"))
+                using (StreamReader reader = new StreamReader("wwwroot/assets/HTML_Template/forgetPassword.html"))
                 {
                     body = reader.ReadToEnd();
                 }

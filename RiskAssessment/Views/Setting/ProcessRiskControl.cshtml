@@ -1,0 +1,724 @@
+﻿@{
+
+    ViewData["Title"] = "Process Risk and Opportunity Control";
+}
+@model ProcessRiskControlViewModel
+<div id="app">
+    <div class="pt-3">
+        <div class="row mt-3">
+            <div class="col">
+                <h3 class="pt-5 text-white"><i class="fa-solid fa-gears"></i> @ViewData["Title"] </h3>
+            </div>
+            <div class="col-auto ml-auto ">
+                
+                <div class="form-group  pt-5">
+                   @* @Html.DropDownListFor(model => model.Division.DivisionName, Model.Division_ddl, new { @class = "custom-select",@onchange = @"document.location.href ='"+Url.Action(SettingController.ActionProcessRiskControl,SettingController.Name,new{ DivisionName = Model.Division.DivisionName}) +"'" })*@
+                    @* <label for="user_sec" class="col-form-label">Division</label>*@
+                    <form>
+                        <select class="custom-select" id="DivisionName" name="DivisionName" onchange="this.form.submit()">
+                           
+                            @foreach (var option in Model.Division_ddl)
+                            {
+
+                                if (option.Selected)
+                                {
+                                    <option value="@option.Value" selected>@option.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@option.Value">@option.Text</option>
+                                }
+                            }
+                        </select>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-auto">
+            <div class="card h-100">
+                <div class="card-body p-3">
+                    <div class="nav flex-column nav-pills mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        @foreach (var item in Model.Division.Sections)
+                        {
+                            <a class="nav-link pl-3 pr-3 text-center @(item.Selected ? "active": "")" id="@item.SectionId" href="@Url.Action(SettingController.ActionProcessRiskControl,SettingController.Name,new{DivisionName = Model.Division.DivisionName,SectionName= item.Sectionname})" role="tab" aria-controls="v-pills-profile" aria-selected="false">@item.Sectionname</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-2">Data logs</h4>
+                            <div class="table-responsive ">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>Created by</th>
+                                            <th class="text-center">Last modified date</th>
+                                            <th class="text-center">Status </th>
+                                            <th class="text-center" width="58%">Timeline</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    <i class="fa-solid fa-gears"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                                    <a class="dropdown-item" href="#"> <i class="fa-solid fa-trash"></i> Delete Draft</a>
+
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">Tanapat Tansara</td>
+                                            <td class="text-center align-middle">2023-07-10</td>
+                                            <td class="text-center align-middle"><span class="badge badge-secondary">Draft</span></td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    <i class="fa-solid fa-gears"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Re-Send Email to notify reviewer</a>
+
+
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">Tanapat Tansara</td>
+                                            <td class="text-center align-middle">2023-07-10</td>
+                                            <td class="text-center align-middle"><span class="badge badge-primary">Pending</span></td>
+                                            <td class="text-center">
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-02</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accept First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li ">
+                                                        <div class="timestamp">
+                                                            <span class="author" style="color:white">_</span>
+                                                            <span class="date" style="color:white">_</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Waiting Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                @*<button class="btn btn-outline-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                <i class="fa-solid fa-gears"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i>  Edit</a>
+                                                <a class="dropdown-item" href="#"><i class="fa-solid fa-xmark-circle"></i>  Cancel</a>
+
+                                                </div>*@
+                                            </td>
+                                            <td class="align-middle">Tanapat Tansara</td>
+                                            <td class="text-center align-middle" valign="middle">2023-07-10</td>
+                                            <td class="text-center align-middle"><span class="badge badge-warning">Cancel</span></td>
+                                            <td class="text-center">
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-02</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li reject">
+                                                        <div class="timestamp">
+                                                            <span class="author">Kwanjai</span>
+                                                            <span class="date">2023-07-03</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Rejected Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    <i class="fa-solid fa-gears"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i>  Edit</a>
+                                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-xmark-circle"></i>  Cancel</a>
+
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">Tanapat Tansara</td>
+                                            <td class="text-center align-middle" valign="middle">2023-07-10</td>
+                                            <td class="text-center align-middle"><span class="badge badge-danger">Rejected</span></td>
+                                            <td class="text-center">
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-02</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li reject">
+                                                        <div class="timestamp">
+                                                            <span class="author">Kwanjai</span>
+                                                            <span class="date">2023-07-03</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Rejected Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">
+                                            </td>
+                                            <td class="align-middle">Tanapat Tansara</td>
+                                            <td class="text-center align-middle" valign="middle">2023-07-10</td>
+                                            <td class="text-center align-middle"><span class="badge badge-success">Accepted</span></td>
+                                            <td class="text-center">
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-02</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Kwanjai</span>
+                                                            <span class="date">2023-07-03</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" align="center" class="table-primary"><a class="btn btn-sm btn-block btn-primary" href="@Url.Action(SettingController.ActionProcessRiskFlow,SettingController.Name)"><i class="fa-solid fa-circle-plus"></i> Update Data As New Revision</a></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                             <h4 class="mb-2">Historical published data</h4>
+                         
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Is Current</th>
+                                            <th class="text-center">Revision</th>
+
+                                            <th>Created by</th>
+                                            <th class="text-center">Timeline</th>
+                                            @*<th class="text-center">Reviewd Date (LV.1)</th>
+                                            <th class="text-center">Reviewd By (LV.2)</th>
+                                            <th class="text-center">Reviewd Date (LV.2)</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(ProcessRiskController.ActionProcessRisk,ProcessRiskController.Name)'">
+
+                                            <td class=" align-middle"><span class="badge badge-success font-14">Current</span></td>
+                                            <td align="right" class="pr-5 align-middle">3</td>
+
+                                            <td class="text-centerecent-activity align-middle">Tanapat Tansara</td>
+                                            <td>
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-05</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Kwanjai</span>
+                                                            <span class="date">2023-07-05</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Data</span>
+                                                            <span class="date">2023-07-10</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Published</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+
+                                        </tr>
+                                        <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(ProcessRiskController.ActionProcessRisk,ProcessRiskController.Name)'">
+
+                                            <td class=" align-middle"><span class="badge badge-secondary font-14">Obsolated</span></td>
+                                            <td align="right" class="pr-5 align-middle">2</td>
+
+                                            <td class="text-center align-middle">Tanapat Tansara</td>
+                                            <td>
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-05</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Kwanjai</span>
+                                                            <span class="date">2023-07-05</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Data</span>
+                                                            <span class="date">2023-07-10</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Published</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+                                        </tr>
+                                        <tr style="cursor:pointer;" onclick="window.location.href = '@Url.Action(ProcessRiskController.ActionProcessRisk,ProcessRiskController.Name)'">
+
+                                            <td class=" align-middle"><span class="badge badge-secondary font-14">Obsolated</span></td>
+                                            <td align="right" class="pr-5 align-middle">1</td>
+
+                                            <td class="text-center align-middle">Tanapat Tansara</td>
+                                            <td>
+                                                <ul class="timeline" id="timeline">
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Tanapat Tansara</span>
+                                                            <span class="date">2023-07-01</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3"> Submited </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Teerawat</span>
+                                                            <span class="date">2023-07-05</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted First Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Kwanjai</span>
+                                                            <span class="date">2023-07-05</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Accepted Second Reviewed </label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="li complete">
+                                                        <div class="timestamp">
+                                                            <span class="author">Data</span>
+                                                            <span class="date">2023-07-10</span>
+                                                        </div>
+                                                        <div class="status">
+                                                            <label class="mt-3">Published</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                   
+                  
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="header-title pt-2">Interaction between process/parties</h5>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> New Interaction Between Process/Parties Flow</button>
+                        </div>
+                    </div>                   
+                    <hr />
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Revision</th>
+                                    <th class="text-center">File</th>
+                                    <th>Created by</th>
+                                    <th class="text-center">Last modified date</th>
+                                    <th class="text-center">Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center align-middle"><span class="badge badge-primary">Pending</span></td>
+                                    <td class="align-middle" align="center">-</td>
+                                    <td class="text-center align-middle"><a href="#"><i class="fa-solid fa-file-lines"></i></a></td>
+                                    <td class="align-middle">Tanapat Tansara</td>
+                                    <td class="text-center align-middle">2023-07-02</td>
+                                    <td class="text-center align-middle">
+                                        <ul class="timeline" id="timeline">
+                                            
+                                            <li class="li complete">
+                                                <div class="timestamp">
+                                                    <span class="author">Teerawat</span>
+                                                    <span class="date">2023-07-02</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Accept First Reviewed </label>
+                                                </div>
+                                            </li>
+                                            <li class="li ">
+                                                <div class="timestamp">
+                                                    <span class="author" style="color:white">_</span>
+                                                    <span class="date" style="color:white">_</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Waiting Second Reviewed </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center align-middle"><span class="badge badge-danger">Rejected</span></td>
+                                    <td class="align-middle" align="center">-</td>
+                                    <td class="text-center align-middle"><a href="#"><i class="fa-solid fa-file-lines"></i></a></td>
+                                    <td class="align-middle">Tanapat Tansara</td>
+                                    <td class="text-center align-middle">2023-06-02</td>
+                                    <td class="text-center align-middle">
+                                        <ul class="timeline" id="timeline">
+                                            <li class="li complete">
+                                                <div class="timestamp">
+                                                    <span class="author">Teerawat</span>
+                                                    <span class="date">2023-06-02</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Accept First Reviewed </label>
+                                                </div>
+                                            </li>
+                                            <li class="li reject">
+                                                <div class="timestamp">
+                                                    <span class="author">Kwanjai</span>
+                                                    <span class="date">2023-06-03</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Rejected Second Reviewed </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center align-middle"><span class="badge badge-success">Current</span></td>
+                                    <td  class="align-middle" align="center">2</td>
+                                    <td class="text-center align-middle"><a href="#"><i class="fa-solid fa-file-lines"></i></a></td>
+                                    <td class="align-middle">Tanapat Tansara</td>
+                                    <td class="text-center align-middle">2022-06-02</td>
+                                    <td class="text-center align-middle">
+                                        <ul class="timeline" id="timeline">
+                                         
+                                            <li class="li complete">
+                                                <div class="timestamp">
+                                                    <span class="author">Teerawat</span>
+                                                    <span class="date">2022-06-02</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Accepted First Reviewed </label>
+                                                </div>
+                                            </li>
+                                            <li class="li complete">
+                                                <div class="timestamp">
+                                                    <span class="author">Kwanjai</span>
+                                                    <span class="date">2022-06-03</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Accepted Second Reviewed </label>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center align-middle"><span class="badge badge-secondary">Obsolated</span></td>
+                                    <td class="align-middle" align="center">1</td>
+                                    <td class="text-center"><a href="#"><i class="fa-solid fa-file-lines"></i></a></td>
+                                    <td class="align-middle">Tanapat Tansara</td>
+                                    <td class="text-center align-middle">2021-06-02</td>
+                                    <td class="text-center align-middle">
+                                        <ul class="timeline" id="timeline">
+
+                                            <li class="li complete">
+                                                <div class="timestamp">
+                                                    <span class="author">Teerawat</span>
+                                                    <span class="date">2021-06-02</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Accepted First Reviewed </label>
+                                                </div>
+                                            </li>
+                                            <li class="li complete">
+                                                <div class="timestamp">
+                                                    <span class="author">Kwanjai</span>
+                                                    <span class="date">2021-06-03</span>
+                                                </div>
+                                                <div class="status">
+                                                    <label class="mt-3">Accepted Second Reviewed </label>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+@section Scripts{
+    <partial name="_Vue2" />
+    <script>
+        //function callChangefunc(val) {
+        //    window.location.href = "/Controller/ActionMethod?value=" + val;
+        //}
+
+    </script>
+}
+ <style>
+    .timeline {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.li {
+  transition: all 200ms ease-in;
+}
+
+.timestamp {
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 100;
+}
+
+.status {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #D6DCE0;
+  position: relative;
+  transition: all 200ms ease-in;
+}
+.status label {
+  font-weight: 600;
+}
+.status:before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: -15px;
+  left: 42%;
+  transition: all 200ms ease-in;
+}
+
+.li.complete .status {
+  border-top: 2px solid #66DC71;
+}
+.li.complete .status:before {
+  background-color: #66DC71;
+  border: none;
+  transition: all 200ms ease-in;
+}
+.li.complete .status label {
+  color: #66DC71;
+}
+
+.li.reject .status {
+  border-top: 2px solid #dc6666;
+}
+.li.reject .status:before {
+  background-color: #dc6666;
+  border: none;
+  transition: all 200ms ease-in;
+}
+.li.reject .status label {
+  color: #dc6666;
+}
+
+@@media (min-device-width: 320px) and (max-device-width: 700px) {
+  .timeline {
+    list-style-type: none;
+    display: block;
+  }
+
+  .li {
+    transition: all 200ms ease-in;
+    display: flex;
+    width: inherit;
+  }
+
+  .timestamp {
+    width: 100px;
+  }
+
+  .status:before {
+    left: -8%;
+    top: 30%;
+    transition: all 200ms ease-in;
+  }
+}
+
+
+ </style>
